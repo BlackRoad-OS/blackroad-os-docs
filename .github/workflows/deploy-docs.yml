@@ -32,10 +32,11 @@ jobs:
       - name: Health check bundle
         run: |
           python -m http.server 3000 --directory build &
+          SERVER_PID=$!
+          trap "kill $SERVER_PID" EXIT
           sleep 5
           curl -f http://localhost:3000/health.json
           curl -f http://localhost:3000/version.json
-
       - name: Select environment
         id: env
         run: |
