@@ -13,3 +13,7 @@ pnpm-lock.yaml
 .tmp
 .vscode
 .idea
+static/health.json
+static/health/
+static/version.json
+static/version/
