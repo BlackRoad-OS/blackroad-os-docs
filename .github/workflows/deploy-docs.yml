@@ -55,7 +55,6 @@ jobs:
           command: railway up --environment ${{ steps.env.outputs.environment }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          PUBLIC_DOCS_URL: ${{ steps.env.outputs.environment == 'prod' && 'https://docs.blackroad.dev' || steps.env.outputs.environment == 'staging' && 'https://staging-docs.blackroad.dev' || 'http://localhost:3000' }}
 
       - name: Upload artifact (GH Pages fallback)
         if: ${{ secrets.RAILWAY_TOKEN == '' }}
