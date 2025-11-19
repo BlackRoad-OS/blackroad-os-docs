@@ -1,4 +1,4 @@
-name: deploy-docs
+name: Deploy docs to Railway
 
 on:
   push:
@@ -6,60 +6,67 @@ on:
       - dev
       - staging
       - main
-  workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy:
+    name: Deploy docs-site
     runs-on: ubuntu-latest
-    env:
-      NODE_ENV: production
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: npm
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build docs
-        run: npm run build
-
-      - name: Health check bundle
-        run: |
-          python -m http.server 3000 --directory build &
-          SERVER_PID=$!
-          trap "kill $SERVER_PID" EXIT
-          sleep 5
-          curl -f http://localhost:3000/health.json
-          curl -f http://localhost:3000/version.json
       - name: Select environment
         id: env
         run: |
-          if [[ "${GITHUB_REF_NAME}" == "main" ]]; then
-            echo "environment=prod" >> "$GITHUB_OUTPUT"
-          elif [[ "${GITHUB_REF_NAME}" == "staging" ]]; then
-            echo "environment=staging" >> "$GITHUB_OUTPUT"
-          else
-            echo "environment=dev" >> "$GITHUB_OUTPUT"
-          fi
+          case "$GITHUB_REF_NAME" in
+            dev)
+              target_env="dev"
+              docs_url="https://dev.docs.blackroad.systems"
+              ;;
+            staging)
+              target_env="staging"
+              docs_url="https://staging.docs.blackroad.systems"
+              ;;
+            main)
+              target_env="prod"
+              docs_url="https://docs.blackroad.systems"
+              ;;
+            *)
+              echo "Branch $GITHUB_REF_NAME is not mapped to a Railway environment" >&2
+              exit 1
+              ;;
+          esac
+
+          echo "env_name=$target_env" >> "$GITHUB_OUTPUT"
+          echo "docs_url=$docs_url" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build docs
+        env:
+          NODE_ENV: production
+          PUBLIC_DOCS_URL: ${{ steps.env.outputs.docs_url }}
+        run: npm run build
 
       - name: Install Railway CLI
-        if: ${{ secrets.RAILWAY_TOKEN != '' }}
         run: npm install -g @railway/cli
 
       - name: Deploy to Railway
-        if: ${{ secrets.RAILWAY_TOKEN != '' }}
-        run: railway up --service docs-site --environment ${{ steps.env.outputs.environment }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          railway up --service docs-site --environment ${{ steps.env.outputs.env_name }} --ci --token "$RAILWAY_TOKEN"
 
-      - name: Upload artifact (GH Pages fallback)
-        if: ${{ !secrets.RAILWAY_TOKEN }}
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: build
+      - name: Run healthcheck (staging/prod)
+        if: steps.env.outputs.env_name == 'staging' || steps.env.outputs.env_name == 'prod'
+        run: |
+          url=${{ steps.env.outputs.docs_url }}/health
+          echo "Checking $url"
+          curl -f "$url" && echo "Healthcheck passed"

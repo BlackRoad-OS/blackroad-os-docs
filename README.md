@@ -25,6 +25,24 @@ This repository hosts the **BlackRoad OS Handbook**, the production-ready docume
   - `staging` → staging environment
   - `main` → production
 
+## Docs Deployment & Environments
+This repository is the official BlackRoad OS documentation site. It deploys to the Railway project at
+`https://railway.com/project/a4efb8cd-0d67-4b19-a7f3-b6dbcedf2079?environmentId=a41a126f-ecf9-47b1-8bd6-11ff9a02d799`
+as the `docs-site` service.
+
+Environment → URL mapping:
+- **dev**: https://dev.docs.blackroad.systems (or local http://localhost:3000 via `npm run dev`)
+- **staging**: https://staging.docs.blackroad.systems
+- **prod**: https://docs.blackroad.systems
+
+Required environment variables:
+- `NODE_ENV`
+- `PUBLIC_DOCS_URL`
+- Optional cross-link targets: `CORE_API_URL`, `WEB_APP_URL`, `CONSOLE_URL`, `AGENTS_API_URL`
+
+The `railway.json` file and `.github/workflows/deploy-docs.yml` workflow keep build (`npm run build`) and start
+(`npm run start`) commands aligned for deploys.
+
 ## Related repositories
 - Core backend: https://github.com/blackroad-os/blackroad-os-core
 - Web UI: https://github.com/blackroad-os/blackroad-os-web
