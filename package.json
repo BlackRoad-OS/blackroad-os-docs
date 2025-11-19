@@ -1,0 +1,20 @@
+{
+  "name": "blackroad-os-docs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Official documentation hub for BlackRoad OS",
+  "scripts": {
+    "start": "docusaurus start",
+    "build": "npm run generate:meta && docusaurus build",
+    "serve": "docusaurus serve",
+    "generate:meta": "node scripts/generateMeta.js"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^3.5.2",
+    "@docusaurus/preset-classic": "^3.5.2",
+    "@mdx-js/react": "^3.0.1",
+    "clsx": "^2.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

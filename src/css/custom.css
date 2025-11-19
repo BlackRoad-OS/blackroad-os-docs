@@ -1,0 +1,48 @@
+:root {
+  --ifm-color-primary: #111827;
+  --ifm-color-primary-dark: #0f172a;
+  --ifm-color-primary-darker: #0b1221;
+  --ifm-color-primary-darkest: #070c17;
+  --ifm-color-primary-light: #1f2937;
+  --ifm-color-primary-lighter: #374151;
+  --ifm-color-primary-lightest: #4b5563;
+}
+
+.hero--primary {
+  background: linear-gradient(120deg, #0f172a 0%, #1f2937 35%, #6b21a8 100%);
+}
+
+.homepage-hero {
+  text-align: left;
+  color: white;
+}
+
+.homepage-hero .buttons {
+  margin-top: 1.5rem;
+}
+
+.callout-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.callout-card {
+  background: #0f172a;
+  color: #f9fafb;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.callout-card h3 {
+  margin-top: 0;
+}
+
+.card-subtitle {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  margin-top: -0.25rem;
+  margin-bottom: 0.5rem;
+}
