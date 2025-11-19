@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "docusaurus start",
     "build": "npm run generate:meta && docusaurus build",
-    "start": "docusaurus serve --dir build --host 0.0.0.0 --port ${PORT:-3000}",
+    "start": "node scripts/serve.js",
     "serve": "npm run start",
     "generate:meta": "node scripts/generateMeta.js"
   },
