@@ -62,7 +62,7 @@ jobs:
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
-          railway up --service docs-site --environment ${{ steps.env.outputs.env_name }} --ci --token "$RAILWAY_TOKEN"
+          railway up --service docs-site --environment ${{ steps.env.outputs.env_name }} --ci
 
       - name: Run healthcheck (staging/prod)
         if: steps.env.outputs.env_name == 'staging' || steps.env.outputs.env_name == 'prod'
