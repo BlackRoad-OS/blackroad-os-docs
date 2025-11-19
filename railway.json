@@ -10,7 +10,7 @@
       "startCommand": "npm run start",
       "env": {
         "NODE_ENV": "production",
-        "PUBLIC_DOCS_URL": "https://docs.blackroad.systems"
+        "PUBLIC_DOCS_URL": "https://docs.blackroad.dev"
       }
     }
   ]
