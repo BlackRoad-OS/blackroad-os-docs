@@ -1,11 +1,12 @@
 // @ts-check
 const {themes: prismThemes} = require('prism-react-renderer');
+const docsConfig = require('./src/config/docsConfig');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'BlackRoad OS Handbook',
   tagline: 'Unified documentation for BlackRoad OS platform',
-  url: 'https://blackroad-os-docs.example.com',
+  url: docsConfig.publicDocsUrl,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -24,6 +25,13 @@ const config = {
       console: 'https://github.com/blackroad-os/blackroad-os-console',
       agents: 'https://github.com/blackroad-os/blackroad-os-agents',
       docs: 'https://github.com/blackroad-os/blackroad-os-docs'
+    },
+    links: {
+      docs: docsConfig.publicDocsUrl,
+      coreApi: docsConfig.coreApiUrl,
+      webApp: docsConfig.webAppUrl,
+      consoleApp: docsConfig.consoleUrl,
+      agentsApi: docsConfig.agentsApiUrl,
     },
     deployment: {
       platform: 'Railway',

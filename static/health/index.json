@@ -1,7 +1,5 @@
 {
   "status": "ok",
-  "environment": "development",
-  "timestamp": "2025-11-19T19:34:36.366Z",
-  "commit": "be7f85024cdcfed6c1c88a14642ab097f05bfec2",
-  "version": "0.1.0"
+  "timestamp": "2025-11-19T21:19:39.408Z",
+  "environment": "production"
 }
