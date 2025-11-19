@@ -58,7 +58,7 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
       - name: Upload artifact (GH Pages fallback)
-        if: ${{ secrets.RAILWAY_TOKEN == '' }}
+        if: ${{ !secrets.RAILWAY_TOKEN }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: build
