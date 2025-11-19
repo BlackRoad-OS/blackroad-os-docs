@@ -65,7 +65,7 @@ jobs:
           railway up --service docs-site --environment ${{ steps.env.outputs.env_name }} --ci
 
       - name: Run healthcheck (staging/prod)
-        if: steps.env.outputs.env_name == 'staging' || steps.env.outputs.env_name == 'prod'
+        if: 'steps.env.outputs.env_name == ''staging'' || steps.env.outputs.env_name == ''prod'''
         run: |
           url=${{ steps.env.outputs.docs_url }}/health
           echo "Checking $url"
