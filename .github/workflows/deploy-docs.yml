@@ -48,12 +48,13 @@ jobs:
             echo "environment=dev" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Install Railway CLI
+        if: ${{ secrets.RAILWAY_TOKEN != '' }}
+        run: npm install -g @railway/cli
+
       - name: Deploy to Railway
         if: ${{ secrets.RAILWAY_TOKEN != '' }}
-        uses: railwayapp/railway-action@v2
-        with:
-          service: docs-site
-          command: railway up --environment ${{ steps.env.outputs.environment }}
+        run: railway up --service docs-site --environment ${{ steps.env.outputs.environment }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
