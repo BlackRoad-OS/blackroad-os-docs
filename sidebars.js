@@ -61,6 +61,7 @@ const sidebars = {
         'infra/domains',
         'infra/environments',
         'infra/env-reference',
+        'infra/railway-service-bootstrap',
         'infra/ci-cd',
       ],
     },
