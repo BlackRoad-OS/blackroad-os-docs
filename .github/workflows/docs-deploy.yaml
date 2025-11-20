@@ -1,4 +1,4 @@
-name: Deploy docs to Railway
+name: Docs Deploy
 
 on:
   push:
@@ -8,14 +8,14 @@ on:
       - main
 
 jobs:
-  deploy:
-    name: Deploy docs-site
+  build-and-deploy:
+    name: Build and deploy docs-site
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Select environment
+      - name: Resolve environment
         id: env
         run: |
           case "$GITHUB_REF_NAME" in
@@ -44,7 +44,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: npm
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -61,12 +61,10 @@ jobs:
       - name: Deploy to Railway
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          railway up --service docs-site --environment ${{ steps.env.outputs.env_name }} --ci
+        run: railway up --service docs-site --environment ${{ steps.env.outputs.env_name }} --ci
 
-      - name: Run healthcheck (staging/prod)
-        if: 'steps.env.outputs.env_name == ''staging'' || steps.env.outputs.env_name == ''prod'''
+      - name: Smoke check
         run: |
-          url=${{ steps.env.outputs.docs_url }}/health
-          echo "Checking $url"
-          curl -f "$url" && echo "Healthcheck passed"
+          url="${{ steps.env.outputs.docs_url }}/health"
+          echo "Pinging $url"
+          curl -fL "$url"
