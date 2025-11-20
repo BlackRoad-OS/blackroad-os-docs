@@ -8,6 +8,7 @@
       "name": "docs-site",
       "buildCommand": "npm ci && npm run build",
       "startCommand": "npm run start",
+      "healthcheckPath": "/health",
       "env": {
         "NODE_ENV": "production",
         "PUBLIC_DOCS_URL": "https://docs.blackroad.dev"

@@ -1,8 +1,8 @@
 {
   "service": "docs-site",
   "appVersion": "0.1.0",
-  "commit": "2c239fe5f225f96afdf8f615caa84c98e86d6cd0",
-  "buildTime": "2025-11-19T21:19:39.407Z",
+  "commit": "76f3de887875c785944a97d81e17b199b3b3b5e7",
+  "buildTime": "2025-11-20T18:35:36.292Z",
   "environment": "production",
   "docsUrl": "http://localhost:3000"
 }

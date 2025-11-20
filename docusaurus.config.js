@@ -70,10 +70,7 @@ const config = {
         src: 'img/logo.svg',
       },
       items: [
-        {type: 'docSidebar', sidebarId: 'introSidebar', position: 'left', label: 'Introduction'},
-        {type: 'docSidebar', sidebarId: 'systemSidebar', position: 'left', label: 'Systems'},
-        {type: 'docSidebar', sidebarId: 'infraSidebar', position: 'left', label: 'Infra'},
-        {type: 'docSidebar', sidebarId: 'enablementSidebar', position: 'left', label: 'Enablement'},
+        {type: 'docSidebar', sidebarId: 'primarySidebar', position: 'left', label: 'Docs'},
         {href: 'https://github.com/blackroad-os/blackroad-os-docs', label: 'GitHub', position: 'right'},
       ],
     },
@@ -94,6 +91,7 @@ const config = {
             {label: 'Infra', to: '/infra/railway-architecture'},
             {label: 'CI/CD', to: '/infra/ci-cd'},
             {label: 'Environment Reference', to: '/infra/env-reference'},
+            {label: 'Operator Playbooks', to: '/operator/overview'},
           ],
         },
         {
