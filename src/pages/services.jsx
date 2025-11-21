@@ -1,43 +1,16 @@
 import Head from 'next/head';
+import DocsLayout from '../components/DocsLayout';
+import { osServices } from '../config/services';
 
-const services = [
-  {
-    name: 'BlackRoad OS – Web',
-    id: 'web',
-    baseUrl: 'https://blackroad.systems',
-    description: 'Public-facing site for the platform.',
-  },
-  {
-    name: 'BlackRoad OS – Console',
-    id: 'console',
-    baseUrl: 'https://console.blackroad.systems',
-    description: 'Prism console for operators and administrators.',
-  },
-  {
-    name: 'BlackRoad OS – API',
-    id: 'api',
-    baseUrl: 'https://api.blackroad.systems',
-    description: 'Public gateway that exposes platform capabilities.',
-  },
-  {
-    name: 'BlackRoad OS – Core',
-    id: 'core',
-    baseUrl: 'https://core.blackroad.systems',
-    description: 'Engine, ledger, and internal backbone.',
-  },
-  {
-    name: 'BlackRoad OS – Operator',
-    id: 'operator',
-    baseUrl: 'https://operator.blackroad.systems',
-    description: 'Workers and background jobs.',
-  },
-  {
-    name: 'BlackRoad OS – Docs',
-    id: 'docs',
-    baseUrl: 'https://docs.blackroad.systems',
-    description: 'This documentation portal.',
-  },
-];
+const responsibilities = {
+  core: 'Maintains ledger, internal state, and foundational APIs.',
+  operator: 'Runs background jobs, queues, and agent workloads.',
+  web: 'Publishes the public site, marketing, and uptime signals.',
+  'prism-console': 'Exposes operator tooling for investigations and job review.',
+  docs: 'Hosts this documentation hub and shared guides.',
+};
+
+const defaultEndpoints = ['/health', '/info', '/version'];
 
 export default function Services() {
   return (
@@ -45,40 +18,43 @@ export default function Services() {
       <Head>
         <title>Services | BlackRoad OS Docs</title>
       </Head>
-      <header className="hero">
-        <h1>Services</h1>
-        <p>Catalog of core services with IDs, base URLs, and responsibilities.</p>
-      </header>
-      <main className="main">
+      <DocsLayout
+        title="Services"
+        intro="Catalog of the core BlackRoad OS services, their responsibilities, and the shared endpoints exposed by each."
+      >
         <section className="section">
           <div className="card">
             <table className="table">
               <thead>
                 <tr>
-                  <th>Name</th>
+                  <th>Service</th>
                   <th>ID</th>
-                  <th>Base URL</th>
-                  <th>Description</th>
+                  <th>Responsibility</th>
+                  <th>Example endpoints</th>
                 </tr>
               </thead>
               <tbody>
-                {services.map((service) => (
+                {osServices.map((service) => (
                   <tr key={service.id}>
                     <td>{service.name}</td>
                     <td>
                       <span className="badge">{service.id}</span>
                     </td>
+                    <td>{responsibilities[service.id]}</td>
                     <td>
-                      <a href={service.baseUrl}>{service.baseUrl}</a>
+                      <ul className="endpoint-list">
+                        {defaultEndpoints.map((endpoint) => (
+                          <li key={`${service.id}-${endpoint}`}>{endpoint}</li>
+                        ))}
+                      </ul>
                     </td>
-                    <td>{service.description}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
         </section>
-      </main>
+      </DocsLayout>
     </>
   );
 }

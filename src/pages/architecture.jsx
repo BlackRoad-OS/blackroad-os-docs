@@ -1,19 +1,39 @@
 import Head from 'next/head';
+import DocsLayout from '../components/DocsLayout';
+import { osServices } from '../config/services';
 
 const layers = [
   {
-    title: 'Frontends',
-    description: 'web (public site), console (Prism console), docs (this portal). These shape the user experience.',
+    title: 'Core',
+    description: 'Ledger, state, and internal APIs that hold the operating model together.',
   },
   {
-    title: 'Backends',
-    description: 'api (public gateway), core (engine and ledger), operator (workers and background jobs).',
+    title: 'Operator',
+    description: 'Job orchestration, background processing, and agent execution.',
   },
   {
-    title: 'Infrastructure',
-    description: 'Railway for deployment, Cloudflare and managed domains under *.blackroad.systems.',
+    title: 'Web',
+    description: 'Public-facing entry point, marketing, and status communication.',
+  },
+  {
+    title: 'Prism Console',
+    description: 'Operational console for humans to inspect jobs and flows.',
+  },
+  {
+    title: 'Docs',
+    description: 'Shared knowledge base that aligns the other layers.',
   },
 ];
+
+const diagram = `
+         Users & Operators
+                 |
+        Web / Prism Console / Docs
+                 |
+              API Edge
+                 |
+           Core ←→ Operator
+`;
 
 export default function Architecture() {
   return (
@@ -21,13 +41,12 @@ export default function Architecture() {
       <Head>
         <title>Architecture | BlackRoad OS Docs</title>
       </Head>
-      <header className="hero">
-        <h1>Architecture</h1>
-        <p>Understand how the system layers connect users to core capabilities.</p>
-      </header>
-      <main className="main">
+      <DocsLayout
+        title="Architecture"
+        intro="How the layers of BlackRoad OS stitch together across frontends, services, and operators."
+      >
         <section className="section">
-          <h2>System layers</h2>
+          <h2>Layers at a glance</h2>
           <div className="card-grid">
             {layers.map((layer) => (
               <div key={layer.title} className="card">
@@ -39,17 +58,31 @@ export default function Architecture() {
         </section>
 
         <section className="section">
-          <h2>Flow</h2>
+          <h2>Rough flow</h2>
           <div className="card">
-            <pre style={{ whiteSpace: 'pre-wrap', margin: 0, fontFamily: 'monospace' }}>
-{`Users → Web / Console / Docs → API → Core / Operator`}
-            </pre>
+            <pre className="diagram" aria-label="Architecture flow diagram">{diagram}</pre>
             <p className="subtle" style={{ marginTop: '12px' }}>
-              Traffic starts at frontends, funnels through the API gateway, and lands on core systems and operators.
+              Requests and jobs start at the user-facing surfaces, pass through the API edge, and land on the Core and
+              Operator services. Documentation and operational tooling keep each surface aligned.
             </p>
           </div>
         </section>
-      </main>
+
+        <section className="section">
+          <h2>Service lineage</h2>
+          <p className="subtle">
+            Each layer maps directly to a named service so that deployments, observability, and onboarding stay
+            consistent:
+          </p>
+          <ul className="docs-list">
+            {osServices.map((service) => (
+              <li key={service.id}>
+                <strong>{service.name}</strong> → {service.description}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </DocsLayout>
     </>
   );
 }
