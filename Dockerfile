@@ -9,12 +9,9 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --omit=dev
-COPY --from=builder /app/build ./build
-COPY --from=builder /app/static ./static
-COPY --from=builder /app/docusaurus.config.js ./
-COPY --from=builder /app/sidebars.js ./
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/README.md ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.js ./
 ENV PORT=8080
 EXPOSE 8080
 CMD ["npm", "start"]

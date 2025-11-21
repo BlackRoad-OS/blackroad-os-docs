@@ -3,7 +3,7 @@
 Documentation portal for the BlackRoad Operating System.
 
 ## Stack
-- Docusaurus v3 + React
+- Next.js + React
 - JavaScript
 
 ## Running locally
@@ -11,22 +11,22 @@ Documentation portal for the BlackRoad Operating System.
 npm install
 npm run dev
 ```
-Visit http://localhost:3000 (or the port set in the env).
+Visit http://localhost:3000.
 
 ## Build & start
 ```bash
 npm run build
 npm start
 ```
-The start command serves the static build on port 8080 by default.
+The start command serves the production build on port 8080.
 
 ## Key routes
 - `/` – docs homepage
 - `/getting-started` – introduction and onboarding checklist
 - `/architecture` – high-level architecture overview
 - `/services` – service catalog
-- `/api/health` – static health payload
-- `/api/info` – static service metadata
+- `/api/health` – health payload
+- `/api/info` – service metadata
 
 ## Railway deployment
 - Port: 8080
