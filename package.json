@@ -11,6 +11,11 @@
   },
   "engines": {
     "node": ">=20"
+    "dev": "docusaurus start",
+    "build": "npm run generate:meta && docusaurus build",
+    "start": "node scripts/serve.js",
+    "serve": "npm run start",
+    "generate:meta": "node scripts/generateMeta.js"
   },
   "dependencies": {
     "next": "14.2.4",
