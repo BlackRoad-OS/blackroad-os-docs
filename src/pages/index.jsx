@@ -1,76 +1,64 @@
-import Link from '@docusaurus/Link';
-import Layout from '@theme/Layout';
-import React from 'react';
-import serviceConfig from '../config/serviceConfig';
+import Link from 'next/link';
+import Head from 'next/head';
+import { serviceConfig } from '../config/serviceConfig';
 
-const quickLinks = [
-  { href: '/getting-started', label: 'Getting Started' },
-  { href: '/architecture', label: 'Architecture' },
-  { href: '/services', label: 'Services' },
+const links = [
+  { href: '/getting-started', title: 'Getting Started', description: 'Kick off with core concepts, environment access, and first checks.' },
+  { href: '/architecture', title: 'Architecture', description: 'See how frontends, gateways, and workers fit together inside BlackRoad OS.' },
+  { href: '/services', title: 'Services', description: 'Service catalog with IDs, base URLs, and responsibilities.' },
 ];
 
 export default function Home() {
   return (
-    <Layout title="BlackRoad OS – Documentation" description="Architecture, services, and integration guides for BlackRoad OS.">
-      <header className="hero hero--primary homepage-hero">
-        <div className="container">
-          <h1 className="hero__title">BlackRoad OS – Documentation</h1>
-          <p className="hero__subtitle">Architecture, services, and integration guides for BlackRoad OS.</p>
-          <div className="buttons">
-            {quickLinks.map((link) => (
-              <Link key={link.href} className="button button--secondary button--lg" to={link.href}>
-                {link.label}
-              </Link>
+    <>
+      <Head>
+        <title>BlackRoad OS – Documentation</title>
+        <meta
+          name="description"
+          content="Reference for architecture, services, and integration of BlackRoad OS."
+        />
+      </Head>
+      <header className="hero">
+        <h1>BlackRoad OS – Documentation</h1>
+        <p>Reference for architecture, services, and integration of BlackRoad OS.</p>
+      </header>
+      <main className="main">
+        <section className="section">
+          <h2>Start exploring</h2>
+          <div className="card-grid">
+            {links.map((link) => (
+              <div key={link.href} className="card">
+                <h3>{link.title}</h3>
+                <p className="subtle">{link.description}</p>
+                <p>
+                  <Link href={link.href}>Open {link.title} →</Link>
+                </p>
+              </div>
             ))}
           </div>
-        </div>
-      </header>
-
-      <main className="container margin-vert--lg">
-        <section className="row">
-          <div className="col col--6">
-            <h2>What you will find here</h2>
-            <ul>
-              <li>How the BlackRoad Operating System fits together across frontends, APIs, and workers.</li>
-              <li>Environment and deployment notes for Railway and the <code>blackroad.systems</code> domain family.</li>
-              <li>Service-by-service responsibilities with links to deeper docs in each section.</li>
-            </ul>
-          </div>
-          <div className="col col--6">
-            <h2>Quick navigation</h2>
-            <ul>
-              {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link to={link.href}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </div>
         </section>
 
-        <section className="margin-top--lg">
+        <section className="section">
           <h2>Service metadata</h2>
-          <p className="margin-bottom--sm">Values pulled from the shared service configuration.</p>
-          <div className="card">
-            <div className="card__body">
-              <ul>
-                <li>
-                  <strong>Service ID:</strong> {serviceConfig.SERVICE_ID}
-                </li>
-                <li>
-                  <strong>Service Name:</strong> {serviceConfig.SERVICE_NAME}
-                </li>
-                <li>
-                  <strong>Service Base URL:</strong> {serviceConfig.SERVICE_BASE_URL}
-                </li>
-                <li>
-                  <strong>OS Root:</strong> {serviceConfig.OS_ROOT}
-                </li>
-              </ul>
-            </div>
-          </div>
+          <p className="subtle">Values provided via shared configuration.</p>
+          <ul className="list-inline">
+            <li>
+              <strong>Service ID:</strong> {serviceConfig.SERVICE_ID}
+            </li>
+            <li>
+              <strong>Service Name:</strong> {serviceConfig.SERVICE_NAME}
+            </li>
+            <li>
+              <strong>Service Base URL:</strong> {serviceConfig.SERVICE_BASE_URL}
+            </li>
+            <li>
+              <strong>OS Root:</strong> {serviceConfig.OS_ROOT}
+            </li>
+          </ul>
         </section>
+
+        <div className="footer">BlackRoad OS Docs — stay aligned across frontends, APIs, and operators.</div>
       </main>
-    </Layout>
+    </>
   );
 }
