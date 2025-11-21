@@ -10,6 +10,7 @@ const sidebars = {
         'intro/vision',
         'intro/architecture',
         'intro/architecture-overview',
+        'intro/product-catalog',
         'intro/versioning-strategy',
         'intro/product-directory',
       ],
