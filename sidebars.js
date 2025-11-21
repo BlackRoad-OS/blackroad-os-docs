@@ -11,6 +11,7 @@ const sidebars = {
         'intro/architecture',
         'intro/architecture-overview',
         'intro/versioning-strategy',
+        'intro/product-directory',
       ],
     },
     {
