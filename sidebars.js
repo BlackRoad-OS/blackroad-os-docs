@@ -62,6 +62,7 @@ const sidebars = {
         'infra/environments',
         'infra/env-reference',
         'infra/ci-cd',
+        'infra/meta-api',
       ],
     },
     {
