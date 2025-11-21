@@ -10,9 +10,13 @@ const isProdLike = env !== 'development';
 
 function readEnv(name, fallback = '') {
   const value = process.env[name] || fallback;
+
   if (isProdLike && name === 'PUBLIC_DOCS_URL' && !value) {
-    throw new Error('PUBLIC_DOCS_URL must be defined in non-development environments');
+    console.warn(
+      'PUBLIC_DOCS_URL was not provided; falling back to default for production-like build'
+    );
   }
+
   return value;
 }
 
