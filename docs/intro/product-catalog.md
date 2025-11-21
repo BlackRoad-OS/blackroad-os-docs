@@ -48,7 +48,7 @@ This catalog translates the BlackRoad OS vision, pain points, and investor memo 
 - **What it is:** Quantum-inspired financial intelligence and optimization surfaced to OS users.
 - **Products:**
   - **BlackRoad QI Lab:** Browser-native environment for portfolio simulations, risk modeling, and quantum-style optimization (add-on for Pro/Enterprise).
-  - **Quant API:** `/v1/qi/*` endpoints for optimization and scenario analysis (another vertical behind Meta API).
+  - **Quant API:** `/v1/qi/*` endpoints for optimization and scenario analysis (exposed via Meta API but branded separately).
   - **Courses & Tools:** Education, labs, and templates under `.shop/.store` domains.
 - **Domains:** `blackroadqi.com`, `blackroadquantum.com` (plus `.info/.net/.shop/.store`).
 
