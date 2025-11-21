@@ -1,16 +1,15 @@
-import Link from 'next/link';
 import Head from 'next/head';
+import Link from 'next/link';
+import EnvironmentInfo from '../components/EnvironmentInfo';
 import { serviceConfig } from '../config/serviceConfig';
 
 const links = [
   { href: '/getting-started', title: 'Getting Started', description: 'Kick off with core concepts, environment access, and first checks.' },
-  { href: '/architecture', title: 'Architecture', description: 'See how frontends, gateways, and workers fit together inside BlackRoad OS.' },
-  { href: '/services', title: 'Services', description: 'Service catalog with IDs, base URLs, and responsibilities.' },
+  { href: '/architecture', title: 'Architecture', description: 'Understand how frontends, gateways, and workers fit together.' },
+  { href: '/services', title: 'Services', description: 'Service catalog with IDs and responsibilities.' },
+  { href: '/agents', title: 'Agents', description: 'Background actors, automations, and how they interact with the OS.' },
+  { href: '/deployment', title: 'Deployment', description: 'Environment notes, release procedures, and operational readiness.' },
 ];
-import Link from '@docusaurus/Link';
-import Layout from '@theme/Layout';
-import React from 'react';
-import EnvironmentInfo from '../components/EnvironmentInfo';
 
 export default function Home() {
   return (

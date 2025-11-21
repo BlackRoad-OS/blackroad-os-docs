@@ -1,81 +1,31 @@
 import Head from 'next/head';
-
-const services = [
-  {
-    name: 'BlackRoad OS – Web',
-    id: 'web',
-    baseUrl: 'https://blackroad.systems',
-    description: 'Public-facing site for the platform.',
-  },
-  {
-    name: 'BlackRoad OS – Console',
-    id: 'console',
-    baseUrl: 'https://console.blackroad.systems',
-    description: 'Prism console for operators and administrators.',
-  },
-  {
-    name: 'BlackRoad OS – API',
-    id: 'api',
-    baseUrl: 'https://api.blackroad.systems',
-    description: 'Public gateway that exposes platform capabilities.',
-  },
-  {
-    name: 'BlackRoad OS – Core',
-    id: 'core',
-    baseUrl: 'https://core.blackroad.systems',
-    description: 'Engine, ledger, and internal backbone.',
-  },
-  {
-    name: 'BlackRoad OS – Operator',
-    id: 'operator',
-    baseUrl: 'https://operator.blackroad.systems',
-    description: 'Workers and background jobs.',
-  },
-  {
-    name: 'BlackRoad OS – Docs',
-    id: 'docs',
-    baseUrl: 'https://docs.blackroad.systems',
-    description: 'This documentation portal.',
-  },
-];
+import { osServices } from '../config/services';
 
 export default function Services() {
   return (
     <>
       <Head>
-        <title>Services | BlackRoad OS Docs</title>
+        <title>Services Overview | BlackRoad OS Docs</title>
       </Head>
       <header className="hero">
-        <h1>Services</h1>
-        <p>Catalog of core services with IDs, base URLs, and responsibilities.</p>
+        <h1>Services Overview</h1>
+        <p>
+          A shared catalog of BlackRoad OS services with their IDs and responsibilities.
+        </p>
       </header>
       <main className="main">
         <section className="section">
-          <div className="card">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>ID</th>
-                  <th>Base URL</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {services.map((service) => (
-                  <tr key={service.id}>
-                    <td>{service.name}</td>
-                    <td>
-                      <span className="badge">{service.id}</span>
-                    </td>
-                    <td>
-                      <a href={service.baseUrl}>{service.baseUrl}</a>
-                    </td>
-                    <td>{service.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="card-grid">
+            {osServices.map((service) => (
+              <div key={service.id} className="card">
+                <div className="badge">{service.id}</div>
+                <h3 style={{ marginBottom: '6px' }}>{service.name}</h3>
+                <p className="subtle" style={{ marginTop: 0 }}>{service.description}</p>
+                <p className="subtle" style={{ marginTop: '12px' }}>
+                  Links and deeper docs coming soon.
+                </p>
+              </div>
+            ))}
           </div>
         </section>
       </main>
