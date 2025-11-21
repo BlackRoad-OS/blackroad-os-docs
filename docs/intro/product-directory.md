@@ -50,8 +50,8 @@ Use this page to point investors, operators, and builders at the live entry poin
 - New extensions (SDKs/CLI) should reuse the environment variable taxonomy documented in the intro and infra sections.
 
 ## References & repos
-- Docs site: this repository (`blackroad-os-docs`), deployed via Railway with canonical hostnames derived from `PUBLIC_DOCS_URL`.
-- Core backend: `blackroad-os-core`.
-- Web app: `blackroad-os-web`.
-- Prism Console: `blackroad-os-console`.
-- Agents runtime: `blackroad-os-agents`.
+- Docs site: this repository ([blackroad-os-docs](https://github.com/blackroad-os-docs)), deployed via Railway with canonical hostnames derived from `PUBLIC_DOCS_URL`.
+- Core backend: [blackroad-os-core](https://github.com/blackroad-os-core).
+- Web app: [blackroad-os-web](https://github.com/blackroad-os-web).
+- Prism Console: [blackroad-os-console](https://github.com/blackroad-os-console).
+- Agents runtime: [blackroad-os-agents](https://github.com/blackroad-os-agents).
