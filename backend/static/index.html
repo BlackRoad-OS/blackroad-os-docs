@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="description" content="BlackRoad OS: A modern, open-source operating system. Explore features, documentation, and community resources." />
+  <meta name="description" content="BlackRoad OS - A browser-native operating system for AI agents, operators, and financial infrastructure" />
   <title>BlackRoad OS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
@@ -82,6 +83,15 @@
       color: #dbeafe;
       font-size: 0.9rem;
       text-decoration: none;
+      cursor: pointer;
+    }
+    .cta span.dot {
+      display: inline-block;
+      width: 0.4rem;
+      height: 0.4rem;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 12px #22c55e;
     }
     .footnote {
       margin-top: 1rem;
@@ -93,6 +103,7 @@
 <body>
   <main class="card">
     <div class="badge">
+    <div class="badge" role="status" aria-label="System status: Live">
       <span class="dot"></span>
       <span>BlackRoad OS • Live</span>
     </div>
@@ -113,6 +124,7 @@
     </div>
     <div class="footnote">
       Backend services deploy separately. This page confirms the OS is reachable.
+      Deeper services (API, operator, console) deploy separately. This page confirms the OS is reachable.
     </div>
   </main>
 </body>
