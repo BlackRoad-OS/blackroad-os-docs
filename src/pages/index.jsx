@@ -7,6 +7,10 @@ const links = [
   { href: '/architecture', title: 'Architecture', description: 'See how frontends, gateways, and workers fit together inside BlackRoad OS.' },
   { href: '/services', title: 'Services', description: 'Service catalog with IDs, base URLs, and responsibilities.' },
 ];
+import Link from '@docusaurus/Link';
+import Layout from '@theme/Layout';
+import React from 'react';
+import EnvironmentInfo from '../components/EnvironmentInfo';
 
 export default function Home() {
   return (
@@ -58,6 +62,7 @@ export default function Home() {
         </section>
 
         <div className="footer">BlackRoad OS Docs — stay aligned across frontends, APIs, and operators.</div>
+        <EnvironmentInfo />
       </main>
     </>
   );
