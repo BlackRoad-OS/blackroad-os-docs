@@ -13,6 +13,7 @@ export default function Architecture() {
       <header className="hero">
         <h1>Architecture</h1>
         <p>High-level layout of BlackRoad OS services and flows.</p>
+        <p>High-level maps and diagrams that show how BlackRoad OS fits together.</p>
       </header>
       <main className="main">
         <section className="section">
@@ -21,6 +22,9 @@ export default function Architecture() {
             <p className="subtle">
               Detailed diagrams and request flows are on the way. This section will cover how frontends, gateways,
               and operators connect to the core ledger and shared infrastructure.
+            <p className="subtle">
+              This section will outline the layers, data flows, and handoffs between services. Detailed walkthroughs
+              and diagrams are on the way.
             </p>
           </div>
         </section>

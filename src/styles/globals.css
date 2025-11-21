@@ -28,11 +28,22 @@ body {
   justify-content: space-between;
   padding: 14px 20px;
   background: rgba(11, 16, 33, 0.85);
+.app-shell {
+  min-height: 100vh;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 22px;
+  background: rgba(11, 16, 33, 0.9);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 10;
   backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
 }
 
 .nav-brand {
@@ -57,6 +68,31 @@ body {
   text-decoration: none;
   border-color: var(--border);
   background: rgba(59, 130, 246, 0.08);
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li a {
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-links li a:hover {
+  background: rgba(59, 130, 246, 0.15);
+  color: #fff;
+}
+
+.layout-content {
+  padding-top: 12px;
 }
 
 a {

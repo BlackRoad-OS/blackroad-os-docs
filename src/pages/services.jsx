@@ -20,6 +20,13 @@ export default function Services() {
       <header className="hero">
         <h1>Services Overview</h1>
         <p>Shared catalog of BlackRoad OS services and their roles.</p>
+        <title>Services Overview | BlackRoad OS Docs</title>
+      </Head>
+      <header className="hero">
+        <h1>Services Overview</h1>
+        <p>
+          A shared catalog of BlackRoad OS services with their IDs and responsibilities.
+        </p>
       </header>
       <main className="main">
         <section className="section">
@@ -36,6 +43,12 @@ export default function Services() {
                     <a href={serviceLinks[service.id]}>Visit entry point →</a>
                   </p>
                 )}
+                <div className="badge">{service.id}</div>
+                <h3 style={{ marginBottom: '6px' }}>{service.name}</h3>
+                <p className="subtle" style={{ marginTop: 0 }}>{service.description}</p>
+                <p className="subtle" style={{ marginTop: '12px' }}>
+                  Links and deeper docs coming soon.
+                </p>
               </div>
             ))}
           </div>

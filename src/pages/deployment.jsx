@@ -10,6 +10,10 @@ export default function Deployment() {
       <header className="hero">
         <h1>Deployment</h1>
         <p>Operational practices for launching and maintaining BlackRoad OS services.</p>
+      </Head>
+      <header className="hero">
+        <h1>Deployment</h1>
+        <p>Guides for environments, release procedures, and operational readiness.</p>
       </header>
       <main className="main">
         <section className="section">
@@ -19,6 +23,7 @@ export default function Deployment() {
               Environment layouts, CI/CD pipelines, and rollback playbooks will live here so teams can ship changes with
               confidence.
             </p>
+            <p className="subtle">Playbooks and deployment diagrams will be documented here.</p>
           </div>
         </section>
       </main>

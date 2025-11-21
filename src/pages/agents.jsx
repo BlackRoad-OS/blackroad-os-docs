@@ -10,6 +10,10 @@ export default function Agents() {
       <header className="hero">
         <h1>Agents</h1>
         <p>Docs for automated agents and how they plug into BlackRoad OS.</p>
+      </Head>
+      <header className="hero">
+        <h1>Agents</h1>
+        <p>Background actors and automation that extend BlackRoad OS.</p>
       </header>
       <main className="main">
         <section className="section">
@@ -19,6 +23,7 @@ export default function Agents() {
               We will outline agent responsibilities, APIs, and operational guardrails here. Stay tuned for connection
               patterns, auth guidance, and runbooks.
             </p>
+            <p className="subtle">Profiles, behaviors, and operating guides for agents will land here soon.</p>
           </div>
         </section>
       </main>
