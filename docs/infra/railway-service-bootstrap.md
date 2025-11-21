@@ -7,7 +7,7 @@ sidebar_position: 8
 A repeatable checklist for turning generated service scaffolding into a live Railway deployment with health and version endpoints online.
 
 ## When to use this
-Use this when copying AI-generated service blueprints (e.g., the nine-service stack: Serene Success, Langtrace Client, Postgres, Node.js API, Fantastic Ambition Orchestrator, FastAPI, Redis Utility, Bun Function, Hello World) into real repositories and Railway services.
+Use this when copying AI-generated service blueprints (e.g., backend APIs, workers, databases, etc.) into real repositories and Railway services.
 
 ## Prerequisites
 - GitHub repo created for the service (org: `BlackRoad-OS` or `blackboxprogramming`).
