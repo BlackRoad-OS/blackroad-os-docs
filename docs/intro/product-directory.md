@@ -4,7 +4,8 @@ title: BlackRoad Product Directory
 sidebar_position: 6
 ---
 
-A concise catalog of the BlackRoad ecosystem: the OS meta repo, revenue-ready SaaS surfaces, agentic products, and supporting compute. Use this page to point investors, operators, and builders at the live entry points and deployment models.
+A concise catalog of the BlackRoad ecosystem: the OS meta repo, revenue-ready SaaS surfaces, agentic products, and supporting compute. 
+Use this page to point investors, operators, and builders at the live entry points and deployment models.
 
 ## Abstract: ecosystem value proposition
 - Unified operating system anchored by the BlackRoad OS meta repository and shared domain network.
