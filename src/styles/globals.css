@@ -60,6 +60,39 @@ body {
 .nav-link {
   color: var(--text);
   padding: 8px 12px;
+.docs-shell {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+.docs-sidebar {
+  background: rgba(17, 24, 49, 0.8);
+  border-right: 1px solid var(--border);
+  padding: 24px 18px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.docs-brand {
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  margin-bottom: 20px;
+}
+
+.docs-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.docs-nav li a {
+  color: var(--text);
+  display: block;
+  padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid transparent;
 }
@@ -93,6 +126,28 @@ body {
 
 .layout-content {
   padding-top: 12px;
+.docs-nav li.active a {
+  font-weight: 700;
+  border-color: var(--accent);
+  background: rgba(59, 130, 246, 0.08);
+  text-decoration: none;
+}
+
+.docs-main {
+  padding: 32px 32px 64px;
+}
+
+.docs-header h1 {
+  margin: 0 0 8px;
+}
+
+.docs-header p {
+  margin: 0;
+}
+
+.docs-content {
+  margin-top: 28px;
+  max-width: 960px;
 }
 
 a {
@@ -191,6 +246,36 @@ a:hover {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 12px;
+}
+
+.docs-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  display: grid;
+  gap: 12px;
+}
+
+.docs-list li {
+  background: rgba(17, 24, 49, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.endpoint-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.diagram {
+  white-space: pre;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  margin: 0;
+  line-height: 1.5;
 }
 
 .subtle {

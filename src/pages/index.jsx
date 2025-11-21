@@ -10,59 +10,41 @@ const links = [
   { href: '/agents', title: 'Agents', description: 'Background actors, automations, and how they interact with the OS.' },
   { href: '/deployment', title: 'Deployment', description: 'Environment notes, release procedures, and operational readiness.' },
 ];
+import DocsLayout from '../components/DocsLayout';
+import { osServices } from '../config/services';
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>BlackRoad OS – Documentation</title>
-        <meta
-          name="description"
-          content="Reference for architecture, services, and integration of BlackRoad OS."
-        />
+        <title>Overview | BlackRoad OS Docs</title>
+        <meta name="description" content="High-level overview of BlackRoad OS." />
       </Head>
-      <header className="hero">
-        <h1>BlackRoad OS – Documentation</h1>
-        <p>Reference for architecture, services, and integration of BlackRoad OS.</p>
-      </header>
-      <main className="main">
+      <DocsLayout
+        title="Overview"
+        intro="A concise entry point to how BlackRoad OS is organized and what it offers."
+      >
         <section className="section">
-          <h2>Start exploring</h2>
-          <div className="card-grid">
-            {links.map((link) => (
-              <div key={link.href} className="card">
-                <h3>{link.title}</h3>
-                <p className="subtle">{link.description}</p>
-                <p>
-                  <Link href={link.href}>Open {link.title} →</Link>
-                </p>
-              </div>
-            ))}
-          </div>
+          <h2>What is BlackRoad OS?</h2>
+          <p className="subtle">
+            BlackRoad OS is a coordinated platform that aligns frontends, services, and operators under a single
+            operating model. It standardizes deployments, endpoints, and workflows so teams can ship features across
+            the stack with confidence.
+          </p>
         </section>
 
         <section className="section">
-          <h2>Service metadata</h2>
-          <p className="subtle">Values provided via shared configuration.</p>
-          <ul className="list-inline">
-            <li>
-              <strong>Service ID:</strong> {serviceConfig.SERVICE_ID}
-            </li>
-            <li>
-              <strong>Service Name:</strong> {serviceConfig.SERVICE_NAME}
-            </li>
-            <li>
-              <strong>Service Base URL:</strong> {serviceConfig.SERVICE_BASE_URL}
-            </li>
-            <li>
-              <strong>OS Root:</strong> {serviceConfig.OS_ROOT}
-            </li>
+          <h2>Core services</h2>
+          <p className="subtle">Five services anchor the platform. Each ships with a health surface and shared deployment playbook.</p>
+          <ul className="docs-list">
+            {osServices.map((service) => (
+              <li key={service.id}>
+                <strong>{service.name}:</strong> {service.description}
+              </li>
+            ))}
           </ul>
         </section>
-
-        <div className="footer">BlackRoad OS Docs — stay aligned across frontends, APIs, and operators.</div>
-        <EnvironmentInfo />
-      </main>
+      </DocsLayout>
     </>
   );
 }
