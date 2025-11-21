@@ -1,57 +1,75 @@
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import React from 'react';
-import docsConfig from '../config/docsConfig';
+import serviceConfig from '../config/serviceConfig';
+
+const quickLinks = [
+  { href: '/getting-started', label: 'Getting Started' },
+  { href: '/architecture', label: 'Architecture' },
+  { href: '/services', label: 'Services' },
+];
 
 export default function Home() {
   return (
-    <Layout title="BlackRoad OS" description="Unified documentation for BlackRoad OS">
+    <Layout title="BlackRoad OS – Documentation" description="Architecture, services, and integration guides for BlackRoad OS.">
       <header className="hero hero--primary homepage-hero">
         <div className="container">
-          <h1 className="hero__title">BlackRoad OS Handbook</h1>
-          <p className="hero__subtitle">One place for platform architecture, operational playbooks, and onboarding.</p>
+          <h1 className="hero__title">BlackRoad OS – Documentation</h1>
+          <p className="hero__subtitle">Architecture, services, and integration guides for BlackRoad OS.</p>
           <div className="buttons">
-            <Link className="button button--secondary button--lg" to="/intro/overview">
-              Start with the overview
-            </Link>
-            <Link className="button button--outline button--lg" to="/infra/environments">
-              Environment reference
-            </Link>
+            {quickLinks.map((link) => (
+              <Link key={link.href} className="button button--secondary button--lg" to={link.href}>
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
       </header>
 
       <main className="container margin-vert--lg">
-        <div className="callout-grid">
-          <div className="callout-card">
-            <h3>Systems</h3>
-            <p className="card-subtitle">Core, Web UI, Prism Console, Agents</p>
-            <p>Discover how each surface interacts, which env vars matter, and where to extend the platform.</p>
-            <Link to="/core/overview">Explore system docs →</Link>
+        <section className="row">
+          <div className="col col--6">
+            <h2>What you will find here</h2>
+            <ul>
+              <li>How the BlackRoad Operating System fits together across frontends, APIs, and workers.</li>
+              <li>Environment and deployment notes for Railway and the <code>blackroad.systems</code> domain family.</li>
+              <li>Service-by-service responsibilities with links to deeper docs in each section.</li>
+            </ul>
           </div>
-          <div className="callout-card">
-            <h3>Infra & Deploy</h3>
-            <p className="card-subtitle">Railway + Cloudflare</p>
-            <p>Deployment flows, domains, CI/CD, and environment mappings with health/version probes baked in.</p>
-            <Link to="/infra/railway">Read infra playbooks →</Link>
+          <div className="col col--6">
+            <h2>Quick navigation</h2>
+            <ul>
+              {quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link to={link.href}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="callout-card">
-            <h3>Onboarding</h3>
-            <p className="card-subtitle">Developers, Operators, Partners</p>
-            <p>Get local setups running fast with repo guides, branching strategy, and shared style rules.</p>
-            <Link to="/onboarding/developer-setup">Onboard now →</Link>
-          </div>
-        </div>
+        </section>
 
-        <div className="margin-top--lg">
-          <p className="text--center">
-            Docs served from <strong>{docsConfig.publicDocsUrl}</strong>{' '}
-            {docsConfig.coreApiUrl && <>| Core API: {docsConfig.coreApiUrl} </>}
-            {docsConfig.webAppUrl && <>| Web App: {docsConfig.webAppUrl} </>}
-            {docsConfig.consoleUrl && <>| Console: {docsConfig.consoleUrl} </>}
-            {docsConfig.agentsApiUrl && <>| Agents API: {docsConfig.agentsApiUrl}</>}
-          </p>
-        </div>
+        <section className="margin-top--lg">
+          <h2>Service metadata</h2>
+          <p className="margin-bottom--sm">Values pulled from the shared service configuration.</p>
+          <div className="card">
+            <div className="card__body">
+              <ul>
+                <li>
+                  <strong>Service ID:</strong> {serviceConfig.SERVICE_ID}
+                </li>
+                <li>
+                  <strong>Service Name:</strong> {serviceConfig.SERVICE_NAME}
+                </li>
+                <li>
+                  <strong>Service Base URL:</strong> {serviceConfig.SERVICE_BASE_URL}
+                </li>
+                <li>
+                  <strong>OS Root:</strong> {serviceConfig.OS_ROOT}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </main>
     </Layout>
   );
