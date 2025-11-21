@@ -1,6 +1,6 @@
 # BlackRoad product catalog
 
-This catalog translates the BlackRoad OS vision, painpoints, and investor memo into a concrete, shippable product lineup. Each SKU is mapped to repos and domains so teams can align build, docs, and GTM without ambiguity.
+This catalog translates the BlackRoad OS vision, pain points, and investor memo into a concrete, shippable product lineup. Each SKU is mapped to repos and domains so teams can align build, docs, and GTM without ambiguity.
 
 ## Core flagship: BlackRoad OS (browser-native computer)
 - **What it is:** Unified desktop/notebook/studio/lab/console/finance cockpit in a browser-native shell.
