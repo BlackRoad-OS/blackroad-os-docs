@@ -2,7 +2,30 @@ import Head from 'next/head';
 import DocsLayout from '../components/DocsLayout';
 import { osServices } from '../config/services';
 
-const layers = [
+const architectureLayers = [
+  {
+    title: 'Interface',
+    description: 'Web, console, and docs surfaces that present the OS to humans and partners.',
+  },
+  {
+    title: 'Orchestration',
+    description: 'Operators and schedulers that direct jobs, flows, and agents across the platform.',
+  },
+  {
+    title: 'Data',
+    description: 'Core ledger, event streams, and configuration stores that hold state and lineage.',
+  },
+  {
+    title: 'Compliance',
+    description: 'Audit, observability, and controls that keep environments aligned with policy.',
+  },
+  {
+    title: 'Compute',
+    description: 'Execution surfaces that run workloads, APIs, and background automation.',
+  },
+];
+
+const serviceLayers = [
   {
     title: 'Core',
     description: 'Ledger, state, and internal APIs that hold the operating model together.',
@@ -61,9 +84,21 @@ export default function Architecture() {
         </section>
 
         <section className="section">
-          <h2>Layers at a glance</h2>
+          <h2>Platform layers at a glance</h2>
           <div className="card-grid">
-            {layers.map((layer) => (
+            {architectureLayers.map((layer) => (
+              <div key={layer.title} className="card">
+                <h3>{layer.title}</h3>
+                <p className="subtle">{layer.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="section">
+          <h2>Service-aligned surfaces</h2>
+          <div className="card-grid">
+            {serviceLayers.map((layer) => (
               <div key={layer.title} className="card">
                 <h3>{layer.title}</h3>
                 <p className="subtle">{layer.description}</p>
