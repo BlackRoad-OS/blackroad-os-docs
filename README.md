@@ -1,22 +1,30 @@
 # BlackRoad OS – Docs
 
-Documentation portal for the BlackRoad Operating System.
+Documentation portal for the BlackRoad Operating System built with **Next.js (Pages Router) + React**.
 
-## Stack
-- Next.js + React
-- JavaScript
-
-## Running locally
+## Local development
 ```bash
 npm install
 npm run dev
 ```
 Visit http://localhost:3000.
 
-## Build & start
-```bash
-npm run build
-npm start
+## Build & serve (Railway-ready)
+- **Framework:** Next.js 14 (Pages Router)
+- **Package manager:** npm
+- **Build command:** `npm run build`
+- **Start command:** `npm start` (internally runs `next start -H 0.0.0.0 -p ${PORT:-8080}`)
+
+The production server binds to `0.0.0.0` and honors `PORT` (default 8080 for Railway).
+
+### Health check
+- Path: `/api/health`
+- Sample response:
+```json
+{
+  "status": "ok",
+  "service": "docs"
+}
 ```
 The start command serves the production build. It binds to `0.0.0.0` and uses the `PORT` environment variable (default `8080`).
 
@@ -30,58 +38,18 @@ The start command serves the production build. It binds to `0.0.0.0` and uses th
 
 ## Railway deployment
 
-This project is configured for Railway deployment using `railway.json`. The configuration includes:
+`railway.json` is preconfigured for the `blackroad-os-docs` service:
 
-- **Port**: Railway will automatically set the `PORT` environment variable (typically 8080)
-- **Healthcheck path**: `/api/health`
-- **Build command**: `npm install && npm run build`
-- **Start command**: `npm start`
-- **Required env vars**: see `.env.example`
+- **Build command:** `npm install && npm run build`
+- **Start command:** `npm start`
+- **Healthcheck path:** `/api/health`
+- **Port:** Railway sets `PORT` (defaulted to 8080 in the start script)
 
-The configuration uses Railway's modern schema with automatic restart on failure and health monitoring.
+No additional static export step is required; the site runs via the Next.js production server.
 
 ## Environment variables
-Copy `.env.example` and adjust values as needed for your environment. Service URLs default to the production `blackroad.systems` domains.
-# BlackRoad OS — Codex & Docs  
-
-## Short Description  
-
-Central documentation hub for BlackRoad OS, Lucidia, agents, and research.  
-
-## Long Description  
-
-Codex & Docs hosts the official documentation, language specifications, architecture breakdowns, agent standards, operating procedures, compliance profile, and developer guides for the BlackRoad ecosystem.  
-
-## Structured Table  
-
-| Field | Value |  
-| --- | --- |  
-| **Purpose** | Documentation, specs, research papers |  
-| **Depends On** | None |  
-| **Used By** | Everyone |  
-| **Owner** | Alexa (Chief Architect) |  
-| **Status** | Ongoing — grows with the system |  
-
-## Roadmap Board (Docs)  
-
-Columns:  
-
-- Outline  
-- Drafting  
-- Review  
-- Format  
-- Publish  
-
-Sample tasks:  
-
-- Lucidia language spec  
-- Architecture master diagram  
-- Agent compliance rules  
-- OS overview docs  
-- Install & dev environment guide 
-# BlackRoad OS Documentation
-
-Documentation hub for BlackRoad OS, Lucidia, Quantum Lab, and agents.
+Copy `.env.example` and adjust values as needed for your environment. Service URLs default to the production `blackroad.systems`
+domains.
 
 ## Documentation Structure
 
