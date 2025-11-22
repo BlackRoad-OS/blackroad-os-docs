@@ -40,30 +40,26 @@ export default function Architecture() {
     <>
       <Head>
         <title>Architecture | BlackRoad OS Docs</title>
-        <meta
-          name="description"
-          content="High-level system architecture for BlackRoad OS."
-        />
+        <meta name="description" content="High-level system architecture for BlackRoad OS." />
       </Head>
-      <header className="hero">
-        <h1>Architecture</h1>
-        <p>High-level layout of BlackRoad OS services and flows.</p>
-        <p>High-level maps and diagrams that show how BlackRoad OS fits together.</p>
-      </header>
-      <main className="main">
-        <section className="section">
-          <div className="card">
-            <h2>Coming soon</h2>
-            <p className="subtle">
-              Detailed diagrams and request flows are on the way. This section will cover how frontends, gateways,
-              and operators connect to the core ledger and shared infrastructure.
-            <p className="subtle">
-              This section will outline the layers, data flows, and handoffs between services. Detailed walkthroughs
-              and diagrams are on the way.
       <DocsLayout
         title="Architecture"
         intro="How the layers of BlackRoad OS stitch together across frontends, services, and operators."
       >
+        <section className="section">
+          <div className="card">
+            <h2>Overview</h2>
+            <p className="subtle">
+              High-level maps and diagrams show how BlackRoad OS fits together. Detailed walkthroughs and connection
+              flows will follow as the platform grows.
+            </p>
+            <p className="subtle">
+              Frontends, gateways, and operators connect to the core ledger and shared infrastructure through predictable
+              edges and shared conventions.
+            </p>
+          </div>
+        </section>
+
         <section className="section">
           <h2>Layers at a glance</h2>
           <div className="card-grid">

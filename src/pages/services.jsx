@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import DocsLayout from '../components/DocsLayout';
 import { osServices } from '../config/services';
 
 const serviceLinks = {
@@ -6,8 +7,6 @@ const serviceLinks = {
   'prism-console': 'https://console.blackroad.systems',
   docs: 'https://docs.blackroad.systems',
 };
-import DocsLayout from '../components/DocsLayout';
-import { osServices } from '../config/services';
 
 const responsibilities = {
   core: 'Maintains ledger, internal state, and foundational APIs.',
@@ -29,18 +28,10 @@ export default function Services() {
           content="Service catalog with IDs, responsibilities, and entry points."
         />
       </Head>
-      <header className="hero">
-        <h1>Services Overview</h1>
-        <p>Shared catalog of BlackRoad OS services and their roles.</p>
-        <title>Services Overview | BlackRoad OS Docs</title>
-      </Head>
-      <header className="hero">
-        <h1>Services Overview</h1>
-        <p>
-          A shared catalog of BlackRoad OS services with their IDs and responsibilities.
-        </p>
-      </header>
-      <main className="main">
+      <DocsLayout
+        title="Services"
+        intro="Catalog of the core BlackRoad OS services, their responsibilities, and the shared endpoints exposed by each."
+      >
         <section className="section">
           <div className="card-grid">
             {osServices.map((service) => (
@@ -55,18 +46,14 @@ export default function Services() {
                     <a href={serviceLinks[service.id]}>Visit entry point →</a>
                   </p>
                 )}
-                <div className="badge">{service.id}</div>
-                <h3 style={{ marginBottom: '6px' }}>{service.name}</h3>
-                <p className="subtle" style={{ marginTop: 0 }}>{service.description}</p>
                 <p className="subtle" style={{ marginTop: '12px' }}>
                   Links and deeper docs coming soon.
                 </p>
               </div>
             ))}
-      <DocsLayout
-        title="Services"
-        intro="Catalog of the core BlackRoad OS services, their responsibilities, and the shared endpoints exposed by each."
-      >
+          </div>
+        </section>
+
         <section className="section">
           <div className="card">
             <table className="table">

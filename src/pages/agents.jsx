@@ -8,15 +8,10 @@ export default function Agents() {
         <title>Agents | BlackRoad OS Docs</title>
         <meta name="description" content="Agent protocols, roles, and integration guides." />
       </Head>
-      <header className="hero">
-        <h1>Agents</h1>
-        <p>Docs for automated agents and how they plug into BlackRoad OS.</p>
-      </Head>
-      <header className="hero">
-        <h1>Agents</h1>
-        <p>Background actors and automation that extend BlackRoad OS.</p>
-      </header>
-      <main className="main">
+      <DocsLayout
+        title="Agents"
+        intro="How automated agents and the Operator service coordinate work across the platform."
+      >
         <section className="section">
           <div className="card">
             <h2>In progress</h2>
@@ -27,12 +22,7 @@ export default function Agents() {
             <p className="subtle">Profiles, behaviors, and operating guides for agents will land here soon.</p>
           </div>
         </section>
-      </main>
-      </Head>
-      <DocsLayout
-        title="Agents"
-        intro="How automated agents and the Operator service coordinate work across the platform."
-      >
+
         <section className="section">
           <h2>Agent orchestration</h2>
           <p className="subtle">

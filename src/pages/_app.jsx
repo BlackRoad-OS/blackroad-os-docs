@@ -9,18 +9,6 @@ const navLinks = [
   { href: '/deployment', label: 'Deployment' },
 ];
 
-function Navigation() {
-  return (
-    <nav className="nav">
-      <div className="nav-brand">BlackRoad OS Docs</div>
-      <div className="nav-links">
-        {navLinks.map((link) => (
-          <Link key={link.href} href={link.href} className="nav-link">
-            {link.label}
-          </Link>
-        ))}
-      </div>
-    </nav>
 function AppLayout({ children }) {
   return (
     <div className="app-shell">
@@ -41,10 +29,6 @@ function AppLayout({ children }) {
 
 export default function App({ Component, pageProps }) {
   return (
-    <>
-      <Navigation />
-      <Component {...pageProps} />
-    </>
     <AppLayout>
       <Component {...pageProps} />
     </AppLayout>
