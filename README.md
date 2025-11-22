@@ -18,7 +18,7 @@ Visit http://localhost:3000.
 npm run build
 npm start
 ```
-The start command serves the production build. By default, it uses port 3000, but you can set the `PORT` environment variable to use a different port (e.g., `PORT=8080 npm start`).
+The start command serves the production build. It binds to `0.0.0.0` and uses the `PORT` environment variable (default `8080`).
 
 ## Key routes
 - `/` – docs homepage
