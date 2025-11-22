@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -H 0.0.0.0 -p 8080",
+    "start": "PORT=${PORT:-8080} HOST=0.0.0.0 next start -H $HOST -p $PORT",
     "lint": "next lint"
   },
   "engines": {
