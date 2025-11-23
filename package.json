@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "PORT=${PORT:-8080} HOST=0.0.0.0 next start -H $HOST -p $PORT",
+    "export": "next export",
+    "start": "serve out -p $PORT -l 0.0.0.0",
     "lint": "next lint"
   },
   "engines": {
@@ -24,6 +25,7 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.4",
     "prism-react-renderer": "^2.4.1",
+    "serve": "^14.2.0",
     "typescript": "^5.9.3"
   }
 }
