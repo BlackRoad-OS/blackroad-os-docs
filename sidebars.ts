@@ -2,50 +2,50 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
   docsSidebar: [
-    'intro',
+    'docs-home',
     'getting-started',
     {
       type: 'category',
-      label: 'Architecture',
+      label: 'Overview',
       items: [
-        'architecture/overview',
-        'architecture/agents-and-orchestration',
-        'architecture/finance-layer',
-        'architecture/ps-sha-infinity',
+        'overview/overview-blackroad-os-overview',
+        'overview/overview-stack-map',
+        'overview/overview-seasons',
       ],
     },
     {
       type: 'category',
-      label: 'Infrastructure',
+      label: 'Operate the OS',
       items: [
-        'infra/environments',
-        'infra/dns-and-networking',
-        'infra/deployments-and-runbooks',
+        'ops/ops-prism-console',
+        'ops/ops-operator-runtime',
+        'ops/ops-infra-guide',
       ],
     },
     {
       type: 'category',
-      label: 'Developers',
+      label: 'Build on the OS',
       items: [
-        'dev/repos-and-services',
-        'dev/local-development',
-        'dev/extending-agents',
+        'dev/dev-core-primitives',
+        'dev/dev-api-overview',
+        'dev/dev-agents-atlas-and-friends',
+        'dev/dev-events-and-roadchain',
       ],
     },
     {
       type: 'category',
-      label: 'Operations',
+      label: 'Business & Vision',
       items: [
-        'ops/prism-console',
-        'ops/incidents-and-incident-response',
+        'business/business-pain-points',
+        'business/business-value-proposition',
       ],
     },
     {
       type: 'category',
-      label: 'Compliance',
+      label: 'Meta',
       items: [
-        'compliance/regulated-overview',
-        'compliance/audit-and-journaling',
+        'meta/meta-glossary',
+        'meta/meta-architecture-decisions',
       ],
     },
   ],

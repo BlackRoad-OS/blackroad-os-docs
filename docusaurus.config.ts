@@ -52,24 +52,25 @@ const config: Config = {
         {
           title: 'BlackRoad OS',
           items: [
-            {label: 'Architecture', to: '/architecture/overview'},
-            {label: 'Finance Layer', to: '/architecture/finance-layer'},
+            {label: 'Docs Home', to: '/'},
+            {label: 'Stack Map', to: '/overview/stack-map'},
+            {label: 'Seasons Overview', to: '/overview/seasons'},
+          ],
+        },
+        {
+          title: 'Operate the OS',
+          items: [
             {label: 'Prism Console', to: '/ops/prism-console'},
+            {label: 'Operator Runtime', to: '/ops/operator-runtime'},
+            {label: 'Infra Guide', to: '/ops/infra-guide'},
           ],
         },
         {
-          title: 'Build & Operate',
+          title: 'Build & Business',
           items: [
-            {label: 'Getting Started', to: '/getting-started'},
-            {label: 'Local Development', to: '/dev/local-development'},
-            {label: 'Deployments & Runbooks', to: '/infra/deployments-and-runbooks'},
-          ],
-        },
-        {
-          title: 'Compliance',
-          items: [
-            {label: 'Regulated Overview', to: '/compliance/regulated-overview'},
-            {label: 'Audit & Journaling', to: '/compliance/audit-and-journaling'},
+            {label: 'Core Primitives', to: '/dev/core-primitives'},
+            {label: 'API Overview', to: '/dev/api-overview'},
+            {label: 'Value Proposition', to: '/business/value-proposition'},
           ],
         },
       ],

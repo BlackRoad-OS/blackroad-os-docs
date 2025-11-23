@@ -1,3 +1,9 @@
+---
+id: ops-prism-console-legacy
+title: Prism Console (Legacy)
+slug: /ops/prism-console-legacy
+---
+
 # Prism Console
 
 Prism Console is the operator-facing UI for BlackRoad OS. It surfaces agent health, finance workflows, and event streams so humans can supervise automation. The console connects to `blackroad-os-api` and relies on that service for data freshness and authorization.
@@ -16,3 +22,5 @@ Set `NEXT_PUBLIC_API_BASE_URL` to the API endpoint for your environment before s
 ## Usage
 
 Start the API and operator, then run Prism Console. Navigate to `/dashboard` for overall health or `/finance` to check the finance agents. Use event views to confirm that PS-SHA∞ journal entries are flowing as expected. TODO: add screenshots once the UI stabilizes.
+
+> This page is legacy. See the updated [Prism Console guide](/ops/prism-console) for the v1 docs home experience.
