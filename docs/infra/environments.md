@@ -1,19 +1,19 @@
-# Environment reference
+# Environments
 
-Track the dev, staging, and prod mappings for the docs site and related services. Use `PUBLIC_DOCS_URL` plus the optional URLs in `src/config/docsConfig.js` to keep cross-links aligned.
+BlackRoad OS is deployed across three environments that share Terraform modules but differ in usage and change cadence. The `blackroad-os-infra` repository holds the definitions under `envs/`, keeping configuration predictable and reviewable.
 
-| Environment | Docs URL | Core API | Web App | Console | Agents API |
-| --- | --- | --- | --- | --- | --- |
-| Dev | http://localhost:3000 (default) | `CORE_API_URL` | `WEB_APP_URL` | `CONSOLE_URL` | `AGENTS_API_URL` |
-| Staging | https://staging.docs.blackroad.systems | Update per deployment | Update per deployment | Update per deployment | Update per deployment |
-| Prod | https://docs.blackroad.systems | Update per deployment | Update per deployment | Update per deployment | Update per deployment |
+| Environment | Purpose | URL Example |
+|------------|---------------------|---------------------------------|
+| dev | Experiments | `*.dev.blackroad.systems` |
+| staging | Pre-production | `*.stg.blackroad.systems` |
+| prod | Live customer usage | `*.blackroad.systems` |
 
-Usage example (client code):
+## How the environments are structured
 
-```js
-import docsConfig from '@site/src/config/docsConfig';
+Each environment directory defines its own variables, state backend, and service maps. Shared modules handle DNS, networking, and cluster bootstrapping to minimize drift. Promotion follows a dev → staging → prod flow, with change windows and approvals tracked through PS-SHA∞ journal entries.
 
-console.log('Docs served from', docsConfig.publicDocsUrl);
-```
+## Working with envs
 
-TODO: Add per-service secrets and operational notes as they stabilize.
+When introducing a new service, add it to the relevant environment definitions and ensure DNS entries are present (see [DNS & Networking](dns-and-networking.md)). Use Terraform workspaces or separate state files as defined in `blackroad-os-infra` to avoid collisions. Apply changes in dev first, validate health checks, then promote to staging and prod with the appropriate human approvals.
+
+Runbooks for deploying and verifying updates live in `blackroad-os-infra/runbooks`. Coordinate with operators when changes affect shared resources like VPCs, certificates, or secrets. TODO: add direct links to specific runbooks once the directory is finalized.

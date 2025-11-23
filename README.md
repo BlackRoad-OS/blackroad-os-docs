@@ -1,82 +1,29 @@
-# BlackRoad OS – Docs
+# BlackRoad OS Docs
 
-Documentation portal for the BlackRoad Operating System built with **Next.js (Pages Router) + React**.
+This repository powers the BlackRoad OS documentation site built with **Docusaurus v2**. It is the central hub for architecture, agents, finance automation, infrastructure, developer workflows, and compliance guidance.
 
-## Local development
+## Running the docs locally
+
 ```bash
 npm install
-npm run dev
+npm run start
 ```
-Visit http://localhost:3000.
 
-## Build & serve (Railway-ready)
-- **Framework:** Next.js 14 (Pages Router)
-- **Package manager:** npm
-- **Build command:** `npm run build`
-- **Start command:** `npm start` (internally runs `next start -H 0.0.0.0 -p ${PORT:-8080}`)
+The dev server runs at http://localhost:3000.
 
-The production server binds to `0.0.0.0` and honors `PORT` (default 8080 for Railway).
+## Building for production
 
-### Health check
-- Path: `/api/health`
-- Sample response:
-```json
-{
-  "status": "ok",
-  "service": "docs"
-}
+```bash
+npm run build
+npm run serve
 ```
-The start command serves the production build. It binds to `0.0.0.0` and uses the `PORT` environment variable (default `8080`).
 
-## Key routes
-- `/` – docs homepage
-- `/getting-started` – introduction and onboarding checklist
-- `/architecture` – high-level architecture overview
-- `/services` – service catalog
-- `/api/health` – health payload
-- `/api/info` – service metadata
+`npm run serve` serves the static build locally for validation.
 
-## Railway deployment
+## Where to start
 
-`railway.json` is preconfigured for the `blackroad-os-docs` service:
+- [Introduction](docs/intro.md) – welcome and quick orientation.
+- [Architecture Overview](docs/architecture/overview.md) – how services fit together.
+- [Finance Layer](docs/architecture/finance-layer.md) – catalog of finance agents and their responsibilities.
 
-- **Build command:** `npm install && npm run build`
-- **Start command:** `npm start`
-- **Healthcheck path:** `/api/health`
-- **Port:** Railway sets `PORT` (defaulted to 8080 in the start script)
-
-No additional static export step is required; the site runs via the Next.js production server.
-
-## Environment variables
-Copy `.env.example` and adjust values as needed for your environment. Service URLs default to the production `blackroad.systems`
-domains.
-
-## Documentation Structure
-
-This repository contains Markdown-based documentation organized by component:
-
-### `/docs/os/`
-Operating system documentation including architecture, features, and development guides.
-- `overview.md` - Main OS overview and architectural information
-
-### `/docs/lucidia/`
-Documentation for the Lucidia programming language and runtime.
-- `overview.md` - Language specification, runtime details, and agent programming model
-
-### `/docs/quantum/`
-Quantum Lab documentation (coming soon).
-
-### `/docs/agents/`
-Agent framework and implementation documentation (coming soon).
-
-### `/docs/infra/`
-Infrastructure and deployment documentation (coming soon).
-
-## Contributing
-
-Contributions are welcome! Please ensure all documentation follows Markdown formatting standards.
-
-## Navigation
-
-- [OS Overview](docs/os/overview.md)
-- [Lucidia Overview](docs/lucidia/overview.md)
+Contributions are welcome. Keep content concise, link across sections, and add TODOs where deeper technical details will follow.
