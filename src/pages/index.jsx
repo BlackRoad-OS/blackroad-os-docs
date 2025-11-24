@@ -1,7 +1,7 @@
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import React from 'react';
-import docsConfig from '../config/docsConfig';
+import EnvironmentInfo from '../components/EnvironmentInfo';
 
 export default function Home() {
   return (
@@ -43,15 +43,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="margin-top--lg">
-          <p className="text--center">
-            Docs served from <strong>{docsConfig.publicDocsUrl}</strong>{' '}
-            {docsConfig.coreApiUrl && <>| Core API: {docsConfig.coreApiUrl} </>}
-            {docsConfig.webAppUrl && <>| Web App: {docsConfig.webAppUrl} </>}
-            {docsConfig.consoleUrl && <>| Console: {docsConfig.consoleUrl} </>}
-            {docsConfig.agentsApiUrl && <>| Agents API: {docsConfig.agentsApiUrl}</>}
-          </p>
-        </div>
+        <EnvironmentInfo />
       </main>
     </Layout>
   );
