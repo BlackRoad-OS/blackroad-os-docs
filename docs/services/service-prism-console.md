@@ -56,7 +56,7 @@ The Prism Console is deployed using:
 - **Access:** Protected by authentication
 
 For deployment procedures, see:
-- [Prism Console Guide](ops/PRISM_CONSOLE.md)
+- [Prism Console Guide](../ops/PRISM_CONSOLE.md)
 - [Deploy Prism Runbook](runbooks/deploy-prism.md) _(planned)_
 
 ## Key Views
@@ -148,5 +148,5 @@ npm run dev
 
 ## See Also
 
-- [Prism Console Ops Guide](ops/PRISM_CONSOLE.md) - Operational documentation
-- [Operator Runtime](ops/OPERATOR_RUNTIME.md) - Job monitoring context
+- [Prism Console Ops Guide](../ops/PRISM_CONSOLE.md) - Operational documentation
+- [Operator Runtime](../ops/OPERATOR_RUNTIME.md) - Job monitoring context

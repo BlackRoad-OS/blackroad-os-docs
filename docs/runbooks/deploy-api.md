@@ -38,10 +38,10 @@ Currently, API deployment is handled via:
 4. Click "Deploy Latest"
 
 ### Environment Variables
-See [Service: API](services/service-api.md) for required environment variables.
+See [Service: API](../services/service-api.md) for required environment variables.
 
 ## See Also
 
-- [Service: API](services/service-api.md)
-- [Infra Guide](ops/INFRA_GUIDE.md)
+- [Service: API](../services/service-api.md)
+- [Infra Guide](../ops/INFRA_GUIDE.md)
 - [Incident Playbook](./incident-playbook.md)

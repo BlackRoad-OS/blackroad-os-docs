@@ -54,7 +54,7 @@ The API service is deployed using:
 - **Health Checks:** `/health`, `/ready`, `/version`
 
 For deployment procedures, see:
-- [Infra Guide](ops/INFRA_GUIDE.md)
+- [Infra Guide](../ops/INFRA_GUIDE.md)
 - [Deploy API Runbook](runbooks/deploy-api.md) _(planned)_
 
 ## Health Checks
@@ -91,10 +91,10 @@ For complete API reference, see [API Surface](reference/api-surface.md) _(planne
 
 ## Related Services
 
-- [Service: Core](./service-core.md) _(planned)_ - Core domain logic and data models
-- [Service: Operator](./service-operator.md) _(planned)_ - Job orchestration and execution
-- [Service: Prism Console](./service-prism-console.md) _(planned)_ - Monitoring and observability UI
-- [Service: Web](./service-web.md) _(planned)_ - User-facing web application
+- [Service: Core](./service-core.md) - Core domain logic and data models
+- [Service: Operator](./service-operator.md) - Job orchestration and execution
+- [Service: Prism Console](./service-prism-console.md) - Monitoring and observability UI
+- [Service: Web](./service-web.md) - User-facing web application
 
 ## Environment Configuration
 
@@ -135,7 +135,7 @@ See [Local Development Guide](dev/local-development.md) for more details.
 - **Logs:** Available via Railway dashboard
 - **Metrics:** Prometheus-compatible endpoints (if configured)
 - **Tracing:** OpenTelemetry support (if configured)
-- **Dashboard:** [Prism Console](ops/PRISM_CONSOLE.md)
+- **Dashboard:** [Prism Console](../ops/PRISM_CONSOLE.md)
 
 ## Troubleshooting
 
@@ -156,14 +156,14 @@ Common issues:
 - Check token expiration settings
 - Validate PS-SHA∞ signatures
 
-For incident response, see [Incident Playbook](ops/incidents-and-incident-response.md).
+For incident response, see [Incident Playbook](../ops/incidents-and-incident-response.md).
 
 ## Contributing
 
 To contribute to the API service:
 
-1. Review [Contributing Guide](guides/contributing.md) _(reference CONTRIBUTING.md)_
-2. Follow [Coding Standards](guides/coding-standards.md) _(planned)_
+1. Review [Contributing Guide](../guides/contributing.md)
+2. Follow [Coding Standards](../guides/coding-standards.md) _(planned)_
 3. Submit PRs to the repository
 4. Ensure all tests pass
 

@@ -25,5 +25,5 @@ This runbook will include:
 ## See Also
 
 - [Incident Playbook](./incident-playbook.md)
-- [Service: API](services/service-api.md)
-- [Service: Operator](services/service-operator.md)
+- [Service: API](../services/service-api.md)
+- [Service: Operator](../services/service-operator.md)

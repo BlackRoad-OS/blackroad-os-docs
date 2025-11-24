@@ -62,7 +62,7 @@ The Operator service is deployed using:
 - **Health Checks:** `/health`, `/ready`, `/queue-status`
 
 For deployment procedures, see:
-- [Operator Runtime Guide](ops/OPERATOR_RUNTIME.md)
+- [Operator Runtime Guide](../ops/OPERATOR_RUNTIME.md)
 - [Deploy Operator Runbook](runbooks/deploy-operator.md) _(planned)_
 
 ## Health Checks
@@ -160,7 +160,7 @@ See [Local Development Guide](dev/local-development.md) for more details.
 - **Metrics:** Job completion rates, failure rates, latency
 - **Logs:** Structured logging with context
 - **Alerts:** Configure alerts for queue depth, failed jobs
-- **Prism Console:** [Real-time monitoring](ops/PRISM_CONSOLE.md)
+- **Prism Console:** [Real-time monitoring](../ops/PRISM_CONSOLE.md)
 
 ## Performance Tuning
 
@@ -206,14 +206,14 @@ For debugging procedures, see [Debug Operator Runbook](runbooks/debug-operator.m
 
 To contribute to the Operator service:
 
-1. Review [Contributing Guide](guides/contributing.md) _(reference CONTRIBUTING.md)_
-2. Follow [Coding Standards](guides/coding-standards.md) _(planned)_
+1. Review [Contributing Guide](../guides/contributing.md)
+2. Follow [Coding Standards](../guides/coding-standards.md) _(planned)_
 3. Understand job lifecycle and queue patterns
 4. Submit PRs with tests
 
 ## See Also
 
-- [Operator Runtime](ops/OPERATOR_RUNTIME.md) - Operational guide
+- [Operator Runtime](../ops/OPERATOR_RUNTIME.md) - Operational guide
 - [Core Primitives](dev/CORE_PRIMITIVES.md) - Job data structures
 - [Events and RoadChain](dev/EVENTS_AND_ROADCHAIN.md) - Event-driven architecture
 - [Agents Atlas](dev/AGENTS_ATLAS_AND_FRIENDS.md) - Agent ecosystem

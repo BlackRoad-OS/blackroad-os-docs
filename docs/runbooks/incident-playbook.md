@@ -47,7 +47,7 @@ This playbook provides step-by-step procedures for responding to incidents in Bl
 5. What services are affected?
 
 **Check:**
-- [Prism Console](ops/PRISM_CONSOLE.md) - System health
+- [Prism Console](../ops/PRISM_CONSOLE.md) - System health
 - Railway logs - Service logs
 - GitHub Actions - Recent deployments
 
@@ -228,7 +228,7 @@ What we did to fix it.
 - Scale up resources
 - Fix database connection
 
-See [Service: API](services/service-api.md) for details.
+See [Service: API](../services/service-api.md) for details.
 
 ---
 
@@ -251,7 +251,7 @@ See [Service: API](services/service-api.md) for details.
 - Scale up workers
 - Fix job timeouts
 
-See [Service: Operator](services/service-operator.md) for details.
+See [Service: Operator](../services/service-operator.md) for details.
 
 ---
 
@@ -311,7 +311,7 @@ See [Service: Operator](services/service-operator.md) for details.
 ## Tools and Resources
 
 **Monitoring:**
-- [Prism Console](ops/PRISM_CONSOLE.md)
+- [Prism Console](../ops/PRISM_CONSOLE.md)
 - Railway Dashboard
 - Cloudflare Analytics
 
@@ -326,12 +326,12 @@ See [Service: Operator](services/service-operator.md) for details.
 - [Rollback Procedures](runbooks/rollback-procedures.md) _(planned)_
 
 **Documentation:**
-- [Service: API](services/service-api.md)
-- [Service: Operator](services/service-operator.md)
-- [Infra Guide](ops/INFRA_GUIDE.md)
+- [Service: API](../services/service-api.md)
+- [Service: Operator](../services/service-operator.md)
+- [Infra Guide](../ops/INFRA_GUIDE.md)
 
 ## See Also
 
-- [Incidents and Incident Response](ops/incidents-and-incident-response.md)
-- [Operator Runtime](ops/OPERATOR_RUNTIME.md)
-- [Prism Console](ops/PRISM_CONSOLE.md)
+- [Incidents and Incident Response](../ops/incidents-and-incident-response.md)
+- [Operator Runtime](../ops/OPERATOR_RUNTIME.md)
+- [Prism Console](../ops/PRISM_CONSOLE.md)

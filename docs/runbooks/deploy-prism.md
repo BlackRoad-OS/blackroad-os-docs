@@ -24,5 +24,5 @@ This runbook will include:
 
 ## See Also
 
-- [Service: Prism Console](services/service-prism-console.md)
-- [Prism Console Guide](ops/PRISM_CONSOLE.md)
+- [Service: Prism Console](../services/service-prism-console.md)
+- [Prism Console Guide](../ops/PRISM_CONSOLE.md)

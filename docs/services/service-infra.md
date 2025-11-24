@@ -139,7 +139,7 @@ Infrastructure monitoring includes:
 
 ## Related Documentation
 
-- [Infra Guide](ops/INFRA_GUIDE.md) - Operational guide
+- [Infra Guide](../ops/INFRA_GUIDE.md) - Operational guide
 - [Environments](../infra/environments.md) - Environment details
 - [DNS and Networking](../infra/dns-and-networking.md) - Network configuration
 
@@ -151,9 +151,9 @@ Infrastructure changes require:
 3. Validation of no downtime impact
 4. Documentation updates
 
-See [Contributing Guide](guides/contributing.md) _(reference CONTRIBUTING.md)_.
+See [Contributing Guide](../guides/contributing.md).
 
 ## See Also
 
 - [Stack Map](../overview/STACK_MAP.md) - Complete system overview
-- [Incident Response](ops/incidents-and-incident-response.md) - Incident handling
+- [Incident Response](../ops/incidents-and-incident-response.md) - Incident handling

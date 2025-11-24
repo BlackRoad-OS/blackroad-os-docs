@@ -31,6 +31,6 @@ Currently, Operator deployment is handled via:
 
 ## See Also
 
-- [Service: Operator](services/service-operator.md)
-- [Operator Runtime](ops/OPERATOR_RUNTIME.md)
+- [Service: Operator](../services/service-operator.md)
+- [Operator Runtime](../ops/OPERATOR_RUNTIME.md)
 - [Incident Playbook](./incident-playbook.md)

@@ -94,7 +94,7 @@ For most deployments, Core is used as a library only.
 
 - [Service: API](./service-api.md) - Uses Core types for API contracts
 - [Service: Operator](./service-operator.md) - Uses Core for job definitions
-- [Service: Web](./service-web.md) _(planned)_ - Uses Core for client-side types
+- [Service: Web](./service-web.md) - Uses Core for client-side types
 
 ## Development
 
@@ -139,7 +139,7 @@ Core is critical infrastructure. All changes require:
 3. Backward compatibility
 4. Documentation updates
 
-See [Contributing Guide](guides/contributing.md) _(reference CONTRIBUTING.md)_.
+See [Contributing Guide](../guides/contributing.md).
 
 ## See Also
 

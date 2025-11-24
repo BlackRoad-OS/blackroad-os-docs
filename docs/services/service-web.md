@@ -52,7 +52,7 @@ The Web service is deployed using:
 - **Environment Variables:** See `.env.example` in repository
 
 For deployment procedures, see:
-- [Infra Guide](ops/INFRA_GUIDE.md)
+- [Infra Guide](../ops/INFRA_GUIDE.md)
 - [Deploy Web Runbook](runbooks/deploy-web.md) _(planned)_
 
 ## Key Routes
@@ -99,7 +99,7 @@ Visit http://localhost:3000
 ## Related Services
 
 - [Service: API](./service-api.md) - Backend API
-- [Service: Prism Console](./service-prism-console.md) _(planned)_ - Operational dashboard
+- [Service: Prism Console](./service-prism-console.md) - Operational dashboard
 
 ## See Also
 

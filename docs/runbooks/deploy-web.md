@@ -25,5 +25,5 @@ This runbook will include:
 
 ## See Also
 
-- [Service: Web](services/service-web.md)
+- [Service: Web](../services/service-web.md)
 - [Incident Playbook](./incident-playbook.md)

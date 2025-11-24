@@ -32,7 +32,7 @@ BlackRoad OS consists of multiple repositories:
 - [blackroad-os-web](https://github.com/BlackRoad-OS/blackroad-os-web) - Web application
 - [blackroad-os-docs](https://github.com/BlackRoad-OS/blackroad-os-docs) - Documentation
 
-See [Stack Map](overview/STACK_MAP.md) for a complete list.
+See [Stack Map](../overview/STACK_MAP.md) for a complete list.
 
 ### 2. Fork and Clone
 

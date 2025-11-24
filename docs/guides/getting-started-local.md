@@ -212,11 +212,11 @@ npm install
 
 - [Extending Agents](dev/extending-agents.md) - Create custom agents
 - [API Overview](dev/API_OVERVIEW.md) - Understand API structure
-- [Contributing Guide](guides/contributing.md) _(reference CONTRIBUTING.md)_
+- [Contributing Guide](guides/contributing.md)
 - [Coding Standards](guides/coding-standards.md) _(planned)_
 
 ## See Also
 
 - [Repositories and Services](dev/repos-and-services.md) - Complete repo map
 - [Local Development](dev/local-development.md) - Additional dev info
-- [Stack Map](overview/STACK_MAP.md) - Architecture overview
+- [Stack Map](../overview/STACK_MAP.md) - Architecture overview
