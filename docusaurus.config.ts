@@ -17,15 +17,13 @@ const config: Config = {
   url: 'https://blackroad.systems',
   baseUrl: '/',
   onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.svg',
   organizationName: 'blackroad-os',
   projectName: 'blackroad-os-docs',
   trailingSlash: false,
   markdown: {
     mermaid: true,
-    hooks: {
-      onBrokenMarkdownLinks: 'warn',
-    },
   },
   themes: ['@docusaurus/theme-mermaid'],
   plugins: [tailwindPlugin],
