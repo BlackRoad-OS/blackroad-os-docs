@@ -18,5 +18,5 @@ process.on('SIGTERM', () => {
   child.kill('SIGTERM');
 });
 child.on('exit', (code) => {
-  process.exit(code);
+  process.exit(code || 1);
 });
