@@ -45,6 +45,7 @@ const sidebars: SidebarsConfig = {
       label: 'Meta',
       items: [
         'meta/meta-glossary',
+        'meta/meta-master-codex-prompt',
         'meta/meta-architecture-decisions',
       ],
     },
