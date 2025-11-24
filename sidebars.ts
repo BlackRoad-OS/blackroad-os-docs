@@ -46,6 +46,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'meta/meta-docs-mega-prompt',
         'meta/meta-glossary',
+        'meta/meta-master-codex-prompt',
         'meta/meta-architecture-decisions',
       ],
     },

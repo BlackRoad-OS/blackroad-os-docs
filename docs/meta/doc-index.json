@@ -1,0 +1,17 @@
+{
+  "docs_home": "/",
+  "overview_blackroad_os": "/overview/blackroad-os-overview",
+  "overview_stack_map": "/overview/stack-map",
+  "overview_seasons": "/overview/seasons",
+  "getting_started": "/getting-started",
+  "core_primitives": "/dev/core-primitives",
+  "api_overview": "/dev/api-overview",
+  "agents_atlas": "/dev/agents-atlas-and-friends",
+  "events_and_roadchain": "/dev/events-and-roadchain",
+  "prism_console": "/ops/prism-console",
+  "operator_runtime": "/ops/operator-runtime",
+  "infra_guide": "/ops/infra-guide",
+  "glossary": "/meta/glossary",
+  "architecture_decisions": "/meta/architecture-decisions",
+  "master_codex_prompt": "/meta/master-codex-prompt"
+}
