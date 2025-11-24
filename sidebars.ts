@@ -15,21 +15,64 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
+      label: 'Services',
+      items: [
+        'services/services-service-api',
+        'services/services-service-operator',
+        'services/services-service-core',
+        'services/services-service-web',
+        'services/services-service-prism-console',
+        'services/services-service-infra',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Agents',
+      items: [
+        'agents/agents-agent-ecosystem',
+        'agents/agents-agent-identity-and-memory',
+        'dev/dev-agents-atlas-and-friends',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Guides',
+      items: [
+        'guides/guides-getting-started-local',
+        'guides/guides-contributing',
+        'guides/guides-coding-standards',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Runbooks',
+      items: [
+        'runbooks/runbooks-incident-playbook',
+        'runbooks/runbooks-deploy-api',
+        'runbooks/runbooks-deploy-operator',
+        'runbooks/runbooks-deploy-web',
+        'runbooks/runbooks-deploy-prism',
+        'runbooks/runbooks-debug-operator',
+        'runbooks/runbooks-rollback-procedures',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Reference',
+      items: [
+        'reference/reference-api-surface',
+        'dev/dev-core-primitives',
+        'dev/dev-api-overview',
+        'dev/dev-events-and-roadchain',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Operate the OS',
       items: [
         'ops/ops-prism-console',
         'ops/ops-operator-runtime',
         'ops/ops-infra-guide',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Build on the OS',
-      items: [
-        'dev/dev-core-primitives',
-        'dev/dev-api-overview',
-        'dev/dev-agents-atlas-and-friends',
-        'dev/dev-events-and-roadchain',
       ],
     },
     {
@@ -44,6 +87,9 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Meta',
       items: [
+        'meta/meta-system-prompt',
+        'meta/meta-style-guide',
+        'meta/meta-docs-contributing',
         'meta/meta-docs-mega-prompt',
         'meta/meta-glossary',
         'meta/meta-master-codex-prompt',
