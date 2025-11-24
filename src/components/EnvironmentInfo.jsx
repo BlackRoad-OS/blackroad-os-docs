@@ -13,7 +13,7 @@ export default function EnvironmentInfo() {
         {docsConfig.coreApiUrl && <>| Core API: {docsConfig.coreApiUrl} </>}
         {docsConfig.webAppUrl && <>| Web App: {docsConfig.webAppUrl} </>}
         {docsConfig.consoleUrl && <>| Console: {docsConfig.consoleUrl} </>}
-        {docsConfig.agentsApiUrl && <>| Agents API: {docsConfig.agentsApiUrl}</>}
+        {docsConfig.agentsApiUrl && <>| Agents API: {docsConfig.agentsApiUrl} </>}
       </p>
     </div>
   );
