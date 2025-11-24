@@ -10,6 +10,10 @@ const child = spawn('docusaurus', args, {
   shell: true
 });
 
+child.on('error', (err) => {
+  console.error('Failed to start docusaurus:', err.message);
+  process.exit(1);
+});
 process.on('SIGINT', () => {
   child.kill('SIGINT');
 });
