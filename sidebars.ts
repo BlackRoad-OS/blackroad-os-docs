@@ -44,6 +44,7 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Meta',
       items: [
+        'meta/meta-docs-mega-prompt',
         'meta/meta-glossary',
         'meta/meta-architecture-decisions',
       ],

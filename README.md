@@ -30,6 +30,7 @@ npm run serve
 ## Where to start
 - [Docs Home](docs/index.md) — choose your path for operating, building, or understanding the OS.
 - [Stack Map](docs/overview/STACK_MAP.md) — repositories mapped to layers and status.
+- [Docs Mega-Prompt](docs/meta/DOCS_MEGA_PROMPT.md) — living field manual for contributors and agents.
 - [Prism Console](docs/ops/PRISM_CONSOLE.md) — cockpit for operators.
 - [Core Primitives](docs/dev/CORE_PRIMITIVES.md) — shared domain types for agents, jobs, and events.
 
