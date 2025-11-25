@@ -96,6 +96,13 @@ const sidebars: SidebarsConfig = {
         'meta/meta-architecture-decisions',
       ],
     },
+    {
+      type: 'category',
+      label: 'System Prompts',
+      items: [
+        'system/prompts/system-docs-master-prompt',
+      ],
+    },
   ],
 };
 
