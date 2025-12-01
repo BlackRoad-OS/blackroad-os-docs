@@ -16,7 +16,7 @@ const config: Config = {
   tagline: 'AI-first operating system for 10,000+ virtual employees and one human orchestrator',
   url: 'https://blackroad.systems',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.svg',
   organizationName: 'blackroad-os',

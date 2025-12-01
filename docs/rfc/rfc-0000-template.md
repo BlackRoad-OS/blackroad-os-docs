@@ -1,6 +1,6 @@
-# RFC-0000: <Title>
+# RFC-0000: \<Title\>
 
-Author: <name>
+Author: \<name\>
 Status: Draft | Review | Approved | Rejected
 Created: YYYY-MM-DD
 
