@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@f43a3398dc5d8737c2dbc7bf8ad6b50918d7a3d4
 
       - name: Resolve environment
         id: env
@@ -41,7 +41,7 @@ jobs:
           echo "docs_url=$docs_url" >> "$GITHUB_OUTPUT"
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@b829d2ab59ffb3738572edf3c6dbd9bfebc477f1
         with:
           node-version: '18'
           cache: 'npm'
