@@ -1,15 +1,78 @@
-# BlackRoad OS Docs
+# BlackRoad OS Documentation
 
-This repository hosts the **official documentation hub** for BlackRoad OS. It aligns architecture language, operational guidance, developer surfaces, and business context across the stack while participating in the shared **"BlackRoad OS - Master Orchestration"** project.
+> *The operating system for the AI age — where software adapts to humans, not the other way around.*
 
-Built with **Docusaurus v3**, the site lives at the docs root (`routeBasePath: '/'`) and mirrors the same components found in `blackroad-os-core`, `blackroad-os-operator`, `blackroad-os-api`, `blackroad-os-prism-console`, `blackroad-os-web`, and `blackroad-os-infra`.
+[![Docs](https://img.shields.io/badge/docs-blackroad.io-black)](https://docs.blackroad.io)
+[![License](https://img.shields.io/badge/license-proprietary-red)](LICENSE)
 
-## Prerequisites
+---
+
+## What is BlackRoad OS?
+
+BlackRoad OS is a **governance and orchestration platform** for AI agents. It provides:
+
+- **Governance Layer** — Policies, audit trails, and permission management for AI operations
+- **Agent Orchestration** — Coordinate multiple AI agents across tools and workflows
+- **Six Portals** — Integrated experiences for personal AI, education, media, gaming, navigation, and privacy
+
+### Core Components
+
+| Component | Purpose |
+|-----------|---------|
+| **Cece** | Lucidia-class governance agent — the brain of BlackRoad |
+| **Policies** | Rules that allow, deny, or modify AI actions |
+| **Ledger** | Immutable audit trail of all governance events |
+| **Intents** | Task and workflow state management |
+| **Claims & Delegations** | Identity and permission management |
+
+---
+
+## Documentation Structure
+
+### Vision & Strategy
+- [**Manifesto**](docs/meta/vision/manifesto.md) — Why BlackRoad exists
+- [**Vision & Mission**](docs/meta/vision/mission.md) — 5-year roadmap and success metrics
+- [**Architecture**](docs/meta/vision/architecture.md) — System design and component overview
+
+### Governance Layer
+- [**Cece Agent Mode**](docs/governance/cece-agent-mode.md) — System prompt for the governance agent
+- [**Governance Roadmap**](docs/governance/governance-roadmap.md) — Sprint plan and implementation details
+
+### Technical Reference
+- [**KV Schema**](docs/reference/kv-schema.md) — Data model for governance objects
+- [**API Design**](docs/reference/api-design.md) — REST API specification
+
+### Operations
+- [Getting Started](docs/getting-started/) — Quick start guides
+- [Runbooks](docs/runbooks/) — Operational procedures
+- [Platform Guides](docs/platform-guides/) — Deployment and configuration
+
+---
+
+## Repository Map
+
+| Repo | Purpose |
+|------|---------|
+| `blackroad-os-docs` | Documentation (this repo) |
+| `blackroad-os-core` | Desktop UI, auth, identity |
+| `blackroad-os-api` | API gateway, REST endpoints |
+| `blackroad-os-operator` | Job scheduler, background workers |
+| `blackroad-os-agents` | Agent implementations |
+| `blackroad-os-infra` | IaC, deployment configs |
+| `blackroad-os-web` | Web frontend |
+| `blackroad-os-prism-console` | Admin dashboard |
+| `lucidia-core` | AI reasoning engines |
+
+---
+
+## Quick Start
+
+### Prerequisites
 
 - Node.js 20+ (see `package.json` engines)
 - npm or pnpm for dependency management
 
-## Running the docs locally
+### Running locally
 
 ```bash
 npm install
@@ -18,21 +81,65 @@ npm run start
 
 The dev server runs at http://localhost:3000.
 
-## Building for production
+### Building for production
 
 ```bash
 npm run build
 npm run serve
 ```
 
-`npm run serve` serves the static build locally for validation.
+---
 
-## Where to start
-- [Docs Home](docs/index.md) — choose your path for operating, building, or understanding the OS.
-- [Stack Map](docs/overview/STACK_MAP.md) — repositories mapped to layers and status.
-- [Docs Mega-Prompt](docs/meta/DOCS_MEGA_PROMPT.md) — living field manual for contributors and agents.
-- [Prism Console](docs/ops/PRISM_CONSOLE.md) — cockpit for operators.
-- [Core Primitives](docs/dev/CORE_PRIMITIVES.md) — shared domain types for agents, jobs, and events.
+## The Six Portals
+
+| Portal | Domain | Description |
+|--------|--------|-------------|
+| **Lucidia** | Personal AI | Your AI that actually knows you — persistent memory, learned preferences |
+| **RoadWork** | Education | Adaptive learning that evolves with your understanding |
+| **RoadView** | Media | Video and image creation without the learning curve |
+| **RoadGlitch** | Gaming | Games that evolve with your play style |
+| **RoadWorld** | Navigation | Context-aware guidance with local knowledge |
+| **BackRoad** | Privacy | Security and anonymization as infrastructure |
+
+---
+
+## Implementation Status
+
+### Phase 1: Foundation (Current)
+- [x] Governance layer specification
+- [x] KV schema design
+- [x] API design
+- [ ] Core implementation
+- [ ] Agent bootstrap
+
+### Phase 2: Portals
+- [ ] Lucidia MVP
+- [ ] RoadWork prototype
+- [ ] RoadView alpha
+
+### Phase 3: Ecosystem
+- [ ] Developer SDK
+- [ ] Agent marketplace
+- [ ] Enterprise features
+
+See [IMPLEMENTATION-ROADMAP.md](docs/IMPLEMENTATION-ROADMAP.md) for full task tracking.
+
+---
 
 ## Contributing
-Keep content concise, link across sections, and prefer iterative updates over monolithic rewrites. Mark components as planned/alpha/in-flight when appropriate so operators, developers, and partners have an honest view of the system. See [CONTRIBUTING.md](CONTRIBUTING.md) for style conventions, validation steps, and how to extend the sidebar when adding new pages.
+
+Keep content concise, link across sections, and prefer iterative updates over monolithic rewrites. Mark components as `planned`, `alpha`, or `in-flight` when appropriate so operators, developers, and partners have an honest view of the system.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for style conventions, validation steps, and how to extend the sidebar when adding new pages.
+
+---
+
+## Links
+
+- **Website:** [blackroad.io](https://blackroad.io)
+- **Docs:** [docs.blackroad.io](https://docs.blackroad.io)
+- **GitHub:** [github.com/BlackRoad-OS](https://github.com/BlackRoad-OS)
+
+---
+
+*The road is long. The road is black. But we're building it together.*
