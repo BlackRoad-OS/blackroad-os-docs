@@ -1,0 +1,95 @@
+---
+id: operator-queues-and-scaling
+title: Operator Queues & Scaling Playbook
+slug: /platform/operator/queues-and-scaling
+description: Guidance for sizing operator worker pools, shaping queues, and keeping job latency predictable.
+tags: [operator, scaling, queues, platform-guide]
+status: beta
+---
+
+## Overview
+
+Use this playbook when you need to tune `blackroad-os-operator` for bursts of agent jobs or to isolate noisy workloads. It gives practical defaults, tuning steps, and verification checks so the worker loop stays healthy while DomainEvents continue to flow to Prism and the API.
+
+## Queue topology
+
+- **Default queue**: short-running agent jobs and lightweight orchestration tasks.
+- **Long-run queue**: heavy transforms, multi-step workflows, or third-party calls with variable latency.
+- **Dead-letter queue (DLQ)**: failed jobs that exceeded retry budgets; drained manually or via a scheduled replay job.
+- **Priority lanes**: optional fast-lane queue for governance decisions or user-facing intents where p99 latency matters.
+
+### Redis keys (BullMQ-style)
+
+| Purpose | Example key | Notes |
+| --- | --- | --- |
+| Waiting jobs | `bull:jobs:waiting` | Should stay low for the default queue; sustained growth signals under-provisioned workers. |
+| Active jobs | `bull:jobs:active` | Track concurrency and stuck workers; alert if a job is active for >2× its SLA. |
+| Failed jobs | `bull:jobs:failed` | Feed DLQ; triage by agent ID and error signature. |
+
+## Baseline configuration
+
+| Setting | Default | Why |
+| --- | --- | --- |
+| Worker concurrency | 4 per pod | Safe starting point for CPU-bound agents on medium instances. |
+| Max retries | 3 with exponential backoff | Avoid hammering upstream systems while still absorbing transient errors. |
+| Job timeout | 60s for default queue, 300s for long-run queue | Prevents hung agents from blocking slots. |
+| Rate limiter | 200 jobs/minute per queue | Smooths bursts from API and Prism-driven runs. |
+| DLQ retention | 72h | Keeps enough history for debugging without unbounded growth. |
+
+Define these via environment variables (Railway/Cloudflare workers) or Helm values for Kubernetes. Keep defaults in version control and document overrides per environment.
+
+## Tuning steps
+
+1. **Profile current load**: capture queue depth, execution time, and failure rate for 15–30 minutes during peak.
+2. **Choose a scaling strategy**:
+   - Increase **worker replicas** when queue depth grows while per-job runtime is stable.
+   - Increase **concurrency** when CPU is low (<60%) but jobs spend time waiting.
+   - Split workloads into the **long-run queue** if a few jobs dominate runtime.
+3. **Apply limits**: set per-queue rate limits and per-agent concurrency caps to stop a single tenant from exhausting slots.
+4. **Warm caches**: preload models/config for common agents at worker startup to avoid cold-start spikes.
+5. **Throttle fans**: when Prism triggers bulk replays, batch them into bundles (e.g., 50 jobs) with short delays to keep Redis responsive.
+6. **Re-measure**: verify p50/p95/p99 latency, queue depth, and failure rate before and after changes.
+
+## Observability signals
+
+Track these metrics in Grafana/Datadog (or locally via `railway logs` + `redis-cli`):
+
+- **Queue depth** by queue name (`LLEN bull:jobs:waiting`)
+- **Job latency** (enqueue → start, start → finish)
+- **Success/failure ratio** per agent and per queue
+- **Retry reason distribution** (timeouts vs. upstream 5xx vs. validation errors)
+- **Event emission lag** between job completion and DomainEvent ingestion by Prism
+- **Resource utilization**: CPU and memory per worker, Redis CPU/conn saturation
+
+Add alerts for:
+
+- Waiting queue depth > 500 for 5 minutes (default queue)
+- p99 latency > 2× baseline for 10 minutes
+- DLQ growth > 20 jobs in 15 minutes
+- Redis command latency > 100 ms
+
+## Failure modes and mitigations
+
+| Symptom | Likely cause | Mitigation |
+| --- | --- | --- |
+| Queue depth spikes while CPU is low | Concurrency too low or long tasks blocking | Raise concurrency by +2 per pod and move long tasks to the long-run queue. |
+| Worker CPU pegged, latency up | Concurrency too high for instance size | Reduce concurrency; scale horizontally instead of vertically. |
+| DLQ fills with timeout errors | Job timeouts too aggressive for certain agents | Extend timeout for those agents or move them to the long-run queue with higher limits. |
+| Redis eviction or slowlog entries | Memory pressure or heavy Lua scripts | Increase Redis memory, enable eviction alerts, and review Lua scripts/rate limits. |
+| Event backlog in Prism | Operator emits events faster than Prism ingests | Temporarily reduce rate limits and scale Prism consumer pods. |
+
+## Verification checklist
+
+After tuning, confirm:
+
+- ✅ Queue depth returns to target within 2–3 minutes of a burst.
+- ✅ p95 job latency is back within SLA per queue.
+- ✅ DLQ is draining and retry rules match error classes.
+- ✅ DomainEvents arrive in Prism/API within expected lag (<5s for default queue).
+- ✅ Resource utilization is below thresholds (CPU <75%, Redis latency <100 ms).
+
+## Related docs
+
+- [Operator Runtime](./operator-runtime.mdx)
+- [Deploy Operator](../../runbooks/deploy-operator.md)
+- [Debug Operator](../../runbooks/debug-operator.md)
