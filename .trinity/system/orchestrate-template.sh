@@ -143,7 +143,26 @@ orchestrate_create() {
     # Step 2: RedLight - Create template
     echo -e "${RED}🔴 RedLight: Creating template...${NC}"
     
-    local base_template="$TRINITY_ROOT/redlight/templates/blackroad-world-template.html"
+    # Select base template based on category
+    local base_template
+    case "$category" in
+        world)
+            base_template="$TRINITY_ROOT/redlight/templates/blackroad-world-template.html"
+            ;;
+        animation)
+            base_template="$TRINITY_ROOT/redlight/templates/blackroad-animation.html"
+            ;;
+        website)
+            base_template="$TRINITY_ROOT/redlight/templates/schematiq-page.html"
+            ;;
+        game)
+            base_template="$TRINITY_ROOT/redlight/templates/blackroad-game.html"
+            ;;
+        *)
+            base_template="$TRINITY_ROOT/redlight/templates/blackroad-world-template.html"
+            ;;
+    esac
+    
     local new_template="$TRINITY_ROOT/redlight/templates/${template_name}.html"
     
     if [ ! -f "$base_template" ]; then
@@ -234,7 +253,17 @@ orchestrate_deploy() {
         return 1
     fi
     
-    local url="https://${template_name##*-}.blackroad.io"
+    local url
+    # Generate URL from template name
+    # Try to extract meaningful name after last dash, or use full name
+    local url_name="${template_name##*-}"
+    # If that's the same as the full name (no dash), use it as is
+    if [ "$url_name" = "$template_name" ]; then
+        url_name="$template_name"
+    fi
+    # Remove 'blackroad-' prefix if present for cleaner URLs
+    url_name="${url_name#blackroad-}"
+    url="https://${url_name}.blackroad.io"
     
     # Step 1: GreenLight - Update status
     echo -e "${GREEN}🟢 GreenLight: Updating deployment status...${NC}"
@@ -347,7 +376,17 @@ orchestrate_status() {
     if template_exists "$template_name"; then
         local template_path="$TRINITY_ROOT/redlight/templates/${template_name}.html"
         local size=$(du -h "$template_path" | cut -f1)
-        local modified=$(date -r "$template_path" "+%Y-%m-%d %H:%M:%S" 2>/dev/null || stat -f "%Sm" "$template_path" 2>/dev/null)
+        # Portable date handling - try multiple methods
+        local modified
+        if date -r "$template_path" "+%Y-%m-%d %H:%M:%S" 2>/dev/null; then
+            modified=$(date -r "$template_path" "+%Y-%m-%d %H:%M:%S")
+        elif stat -c %y "$template_path" 2>/dev/null; then
+            modified=$(stat -c %y "$template_path" | cut -d'.' -f1)
+        elif stat -f "%Sm" "$template_path" 2>/dev/null; then
+            modified=$(stat -f "%Sm" "$template_path")
+        else
+            modified="unknown"
+        fi
         echo -e "  ✅ Template exists"
         echo -e "  📏 Size: ${size}"
         echo -e "  📅 Modified: ${modified}"
@@ -362,7 +401,13 @@ orchestrate_status() {
     
     echo -e "\n${YELLOW}🟡 YellowLight Status:${NC}"
     echo -e "  ℹ️  Check deployment platforms for live status"
-    echo -e "  🌐 URL: https://${template_name##*-}.blackroad.io"
+    # Generate URL using same logic as deploy
+    local url_name="${template_name##*-}"
+    if [ "$url_name" = "$template_name" ]; then
+        url_name="$template_name"
+    fi
+    url_name="${url_name#blackroad-}"
+    echo -e "  🌐 URL: https://${url_name}.blackroad.io"
 }
 
 # Update template
@@ -429,3 +474,4 @@ case "${1:-}" in
         exit 1
         ;;
 esac
+
