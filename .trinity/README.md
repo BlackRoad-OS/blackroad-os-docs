@@ -88,7 +88,32 @@ The Light Trinity is BlackRoad OS's unified intelligence, templating, and infras
 
 ## 🚀 Quick Start
 
-### Using RedLight Templates
+### Using Template Orchestration (Recommended)
+
+```bash
+# The easiest way to work with templates is using the orchestration system
+# It coordinates RedLight, GreenLight, and YellowLight automatically
+
+# List all available templates
+.trinity/system/orchestrate-template.sh list
+
+# Create a new template (creates GreenLight task + RedLight template)
+.trinity/system/orchestrate-template.sh create blackroad-mars world
+
+# Deploy a template (coordinates all three lights)
+.trinity/system/orchestrate-template.sh deploy blackroad-earth cloudflare
+
+# Check template status
+.trinity/system/orchestrate-template.sh status blackroad-earth
+
+# Run complete workflow (create → customize → deploy)
+.trinity/system/orchestrate-template.sh workflow blackroad-jupiter world
+
+# Get help
+.trinity/system/orchestrate-template.sh help
+```
+
+### Using RedLight Templates (Manual)
 
 ```bash
 # Source the template system
@@ -103,7 +128,7 @@ cp .trinity/redlight/templates/blackroad-ultimate.html ./my-new-page.html
 # Edit with your content while keeping brand consistency
 ```
 
-### Using GreenLight Logging
+### Using GreenLight Logging (Manual)
 
 ```bash
 # Source the templates
@@ -122,7 +147,7 @@ gl_announce "claude-api" "FastAPI migration" "1) Setup 2) Test 3) Deploy" "Backe
 show_help
 ```
 
-### Using YellowLight Infrastructure
+### Using YellowLight Infrastructure (Manual)
 
 ```bash
 # Source the infrastructure templates
@@ -157,10 +182,33 @@ All located in `.trinity/greenlight/docs/`:
 ### Trinity System Docs
 - `.trinity/system/THE_LIGHT_TRINITY.md` - Complete overview
 - `.trinity/system/LIGHT_TRINITY_ENFORCEMENT.md` - Compliance rules
+- `.trinity/system/TEMPLATE_ORCHESTRATION.md` - 🌈 **Template orchestration guide (NEW)**
+- `.trinity/system/orchestrate-template.sh` - 🌈 **Orchestration CLI tool (NEW)**
 
 ---
 
 ## 🎯 Common Workflows
+
+### 🌈 Using Template Orchestration (Recommended)
+
+The orchestration system coordinates all three lights automatically:
+
+```bash
+# Create a new world template
+.trinity/system/orchestrate-template.sh create blackroad-venus world
+
+# Edit the template file
+# .trinity/redlight/templates/blackroad-venus.html
+
+# Deploy when ready
+.trinity/system/orchestrate-template.sh deploy blackroad-venus cloudflare
+
+# Check status
+.trinity/system/orchestrate-template.sh status blackroad-venus
+
+# Or run complete workflow with pause for editing
+.trinity/system/orchestrate-template.sh workflow blackroad-saturn world
+```
 
 ### Creating a New Landing Page (RedLight)
 1. Choose template from `.trinity/redlight/templates/`
