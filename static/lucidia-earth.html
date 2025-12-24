@@ -162,7 +162,7 @@
         <h2>PS-SHA+ Fractal Terrain</h2>
         <ul>
             <li>• 64×64 recursive subdivision</li>
-            <li>• cells(d) = 4096^d = 64^(2d)</li>
+            <li>• cells(d) = (64 × 2^d)² = 4096 × 4^d</li>
             <li>• Infinite precision zoom</li>
             <li>• Deterministic generation</li>
             <li>• Ground level = ~1m² per cell</li>
@@ -176,6 +176,12 @@
         // Constants
         const PHI = 1.618033988749895;
         const LO_SHU = [[4,9,2],[3,5,7],[8,1,6]];
+        
+        // Color variation constants
+        const COLOR_VAR_MULTIPLIER = 100;
+        const COLOR_VAR_SEED = 999;
+        const COLOR_VAR_RANGE = 30;
+        const COLOR_VAR_OFFSET = 15;
         
         // State
         let width, height;
@@ -246,7 +252,9 @@
         
         // Render terrain
         function render() {
-            const startTime = performance.now();
+            const currentTime = performance.now();
+            const frameTime = currentTime - lastFrameTime;
+            lastFrameTime = currentTime;
             
             // Cell size based on zoom and depth
             const baseSize = 64;  // Base grid is 64x64
@@ -299,7 +307,7 @@
                     const biome = getBiome(finalVal, worldX, worldY);
                     
                     // Color variation based on exact position
-                    const variation = pssha(worldX * 100, worldY * 100, 999) % 30 - 15;
+                    const variation = pssha(worldX * COLOR_VAR_MULTIPLIER, worldY * COLOR_VAR_MULTIPLIER, COLOR_VAR_SEED) % COLOR_VAR_RANGE - COLOR_VAR_OFFSET;
                     
                     const r = Math.max(0, Math.min(255, biome.color[0] + variation));
                     const g = Math.max(0, Math.min(255, biome.color[1] + variation));
@@ -315,10 +323,8 @@
             // Update stats
             document.getElementById('block-val').textContent = blockCount.toLocaleString();
             
-            const frameTime = performance.now() - lastFrameTime;
             fps = Math.round(1000 / Math.max(1, frameTime));
             document.getElementById('fps-val').textContent = fps;
-            lastFrameTime = performance.now();
         }
         
         // Zoom functions
