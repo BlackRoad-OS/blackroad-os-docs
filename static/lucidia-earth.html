@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucidia Earth :: Fractal Terrain</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0a0f;
+            color: #0F0;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+        
+        #terrain-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        #controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid #0F0;
+            border-radius: 8px;
+            padding: 15px;
+            z-index: 100;
+            min-width: 200px;
+        }
+        
+        h1 {
+            color: #0F0;
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #0F0;
+        }
+        
+        .stat {
+            font-size: 12px;
+            margin: 5px 0;
+            color: #0C0;
+        }
+        
+        .stat span {
+            color: #0F0;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        button {
+            background: rgba(0, 50, 0, 0.8);
+            border: 1px solid #0F0;
+            color: #0F0;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 11px;
+        }
+        
+        button:hover {
+            background: #0F0;
+            color: #000;
+        }
+        
+        .depth-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin: 10px 0;
+        }
+        
+        .depth-btn {
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .depth-btn.active {
+            background: #0F0;
+            color: #000;
+        }
+        
+        .instructions {
+            font-size: 10px;
+            color: #080;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+        
+        #info-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid #0F0;
+            border-radius: 8px;
+            padding: 15px;
+            z-index: 100;
+            font-size: 11px;
+        }
+        
+        #info-panel h2 {
+            color: #0F0;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        
+        #info-panel ul {
+            list-style: none;
+            color: #0C0;
+        }
+        
+        #info-panel li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="terrain-canvas"></canvas>
+    
+    <div id="controls">
+        <h1>◈ Lucidia Earth</h1>
+        <div class="stat">Depth: <span id="depth-val">0</span></div>
+        <div class="stat">Zoom: <span id="zoom-val">1.00</span>x</div>
+        <div class="stat">Blocks: <span id="block-val">4,096</span></div>
+        <div class="stat">FPS: <span id="fps-val">60</span></div>
+        
+        <div class="buttons">
+            <button onclick="zoomIn()">Zoom In ↓</button>
+            <button onclick="zoomOut()">Zoom Out ↑</button>
+        </div>
+        
+        <div class="depth-buttons">
+            <button class="depth-btn active" onclick="setDepth(0)">0</button>
+            <button class="depth-btn" onclick="setDepth(1)">1</button>
+            <button class="depth-btn" onclick="setDepth(2)">2</button>
+            <button class="depth-btn" onclick="setDepth(3)">3</button>
+            <button class="depth-btn" onclick="setDepth(4)">4</button>
+            <button class="depth-btn" onclick="setDepth(5)">5</button>
+            <button class="depth-btn" onclick="setDepth(6)">6</button>
+        </div>
+        
+        <div class="instructions">
+            W/S or ↑/↓ to zoom<br>
+            Mouse drag to pan<br>
+            0-6 for depth levels
+        </div>
+    </div>
+    
+    <div id="info-panel">
+        <h2>PS-SHA+ Fractal Terrain</h2>
+        <ul>
+            <li>• 64×64 recursive subdivision</li>
+            <li>• cells(d) = 4096^d = 64^(2d)</li>
+            <li>• Infinite precision zoom</li>
+            <li>• Deterministic generation</li>
+            <li>• Ground level = ~1m² per cell</li>
+        </ul>
+    </div>
+    
+    <script>
+        const canvas = document.getElementById('terrain-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Constants
+        const PHI = 1.618033988749895;
+        const LO_SHU = [[4,9,2],[3,5,7],[8,1,6]];
+        
+        // State
+        let width, height;
+        let depth = 0;
+        let zoom = 1;
+        let offsetX = 0, offsetY = 0;
+        let isDragging = false;
+        let lastX, lastY;
+        let lastFrameTime = performance.now();
+        let fps = 60;
+        
+        // PS-SHA+ deterministic hash (simplified)
+        function pssha(x, y, seed = 12345) {
+            // Combine coordinates with seed
+            let h = seed;
+            h = ((h << 5) - h) + x;
+            h = ((h << 5) - h) + y;
+            h = ((h << 5) - h) + Math.floor(x * PHI * 1000);
+            h = ((h << 5) - h) + Math.floor(y * PHI * 1000);
+            
+            // Mix with Lo Shu
+            const i = Math.abs(x) % 3;
+            const j = Math.abs(y) % 3;
+            h = ((h << 5) - h) + LO_SHU[i][j];
+            
+            // Finalize
+            h = h ^ (h >>> 16);
+            h = Math.imul(h, 0x85ebca6b);
+            h = h ^ (h >>> 13);
+            h = Math.imul(h, 0xc2b2ae35);
+            h = h ^ (h >>> 16);
+            
+            return Math.abs(h);
+        }
+        
+        // Get terrain value at position
+        function getTerrainValue(x, y, d) {
+            const hash = pssha(Math.floor(x), Math.floor(y), d * 7919);
+            return (hash % 1000) / 1000;
+        }
+        
+        // Biome from terrain value
+        function getBiome(value, x, y) {
+            // Lo Shu influence
+            const loShuVal = LO_SHU[Math.abs(Math.floor(x)) % 3][Math.abs(Math.floor(y)) % 3] / 9;
+            const combined = (value + loShuVal) / 2;
+            
+            if (combined < 0.15) return { name: 'Deep Ocean', color: [10, 30, 80] };
+            if (combined < 0.25) return { name: 'Ocean', color: [20, 60, 140] };
+            if (combined < 0.35) return { name: 'Shallow Water', color: [40, 100, 180] };
+            if (combined < 0.4) return { name: 'Beach', color: [230, 210, 160] };
+            if (combined < 0.5) return { name: 'Grassland', color: [80, 160, 60] };
+            if (combined < 0.6) return { name: 'Forest', color: [30, 100, 30] };
+            if (combined < 0.7) return { name: 'Dense Forest', color: [20, 70, 20] };
+            if (combined < 0.8) return { name: 'Hills', color: [100, 90, 70] };
+            if (combined < 0.9) return { name: 'Mountain', color: [120, 110, 100] };
+            return { name: 'Snow Peak', color: [240, 245, 255] };
+        }
+        
+        // Resize handler
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            render();
+        }
+        
+        // Render terrain
+        function render() {
+            const startTime = performance.now();
+            
+            // Cell size based on zoom and depth
+            const baseSize = 64;  // Base grid is 64x64
+            const cellsPerSide = baseSize * Math.pow(2, depth);
+            const cellSize = Math.max(1, Math.floor(zoom * 8));
+            
+            // Calculate visible area
+            const viewWidth = Math.ceil(width / cellSize) + 2;
+            const viewHeight = Math.ceil(height / cellSize) + 2;
+            
+            // Starting position
+            const startX = Math.floor(-offsetX / cellSize);
+            const startY = Math.floor(-offsetY / cellSize);
+            
+            // Clear
+            ctx.fillStyle = '#0a0a0f';
+            ctx.fillRect(0, 0, width, height);
+            
+            let blockCount = 0;
+            
+            // Render each visible cell
+            for (let dy = 0; dy < viewHeight; dy++) {
+                for (let dx = 0; dx < viewWidth; dx++) {
+                    const worldX = startX + dx;
+                    const worldY = startY + dy;
+                    
+                    // Screen position
+                    const screenX = (worldX * cellSize) + offsetX;
+                    const screenY = (worldY * cellSize) + offsetY;
+                    
+                    // Skip if off-screen
+                    if (screenX + cellSize < 0 || screenX > width || 
+                        screenY + cellSize < 0 || screenY > height) continue;
+                    
+                    // Get terrain value with depth influence
+                    const terrainVal = getTerrainValue(worldX, worldY, depth);
+                    
+                    // Apply additional fractal detail at higher depths
+                    let finalVal = terrainVal;
+                    for (let d = 1; d <= depth; d++) {
+                        const detailVal = getTerrainValue(
+                            worldX * Math.pow(2, d), 
+                            worldY * Math.pow(2, d), 
+                            d
+                        );
+                        finalVal = (finalVal + detailVal * (0.5 / d)) / (1 + 0.5 / d);
+                    }
+                    
+                    // Get biome
+                    const biome = getBiome(finalVal, worldX, worldY);
+                    
+                    // Color variation based on exact position
+                    const variation = pssha(worldX * 100, worldY * 100, 999) % 30 - 15;
+                    
+                    const r = Math.max(0, Math.min(255, biome.color[0] + variation));
+                    const g = Math.max(0, Math.min(255, biome.color[1] + variation));
+                    const b = Math.max(0, Math.min(255, biome.color[2] + variation));
+                    
+                    ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+                    ctx.fillRect(screenX, screenY, cellSize, cellSize);
+                    
+                    blockCount++;
+                }
+            }
+            
+            // Update stats
+            document.getElementById('block-val').textContent = blockCount.toLocaleString();
+            
+            const frameTime = performance.now() - lastFrameTime;
+            fps = Math.round(1000 / Math.max(1, frameTime));
+            document.getElementById('fps-val').textContent = fps;
+            lastFrameTime = performance.now();
+        }
+        
+        // Zoom functions
+        function zoomIn() {
+            zoom = Math.min(100, zoom * 1.5);
+            document.getElementById('zoom-val').textContent = zoom.toFixed(2);
+            render();
+        }
+        
+        function zoomOut() {
+            zoom = Math.max(0.1, zoom / 1.5);
+            document.getElementById('zoom-val').textContent = zoom.toFixed(2);
+            render();
+        }
+        
+        function setDepth(d) {
+            depth = d;
+            document.getElementById('depth-val').textContent = d;
+            
+            // Update button states
+            document.querySelectorAll('.depth-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === d);
+            });
+            
+            render();
+        }
+        
+        // Mouse handlers
+        canvas.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            lastX = e.clientX;
+            lastY = e.clientY;
+        });
+        
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            offsetX += e.clientX - lastX;
+            offsetY += e.clientY - lastY;
+            lastX = e.clientX;
+            lastY = e.clientY;
+            
+            render();
+        });
+        
+        canvas.addEventListener('mouseup', () => isDragging = false);
+        canvas.addEventListener('mouseleave', () => isDragging = false);
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp') {
+                zoomIn();
+            } else if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown') {
+                zoomOut();
+            } else if (e.key >= '0' && e.key <= '6') {
+                setDepth(parseInt(e.key));
+            }
+        });
+        
+        // Initialize
+        resize();
+        window.addEventListener('resize', resize);
+        
+        // Animation loop for smooth rendering
+        function animate() {
+            render();
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
