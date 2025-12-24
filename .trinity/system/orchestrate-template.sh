@@ -283,8 +283,12 @@ orchestrate_deploy() {
         cloudflare)
             if command -v wrangler &> /dev/null; then
                 echo "   Deploying to Cloudflare Pages..."
-                wrangler pages deploy "$template_path" \
-                    --project-name="${template_name}" || true
+                if ! wrangler pages deploy "$template_path" --project-name="${template_name}"; then
+                    echo -e "   ${RED}❌ Deployment failed${NC}"
+                    echo "   Check Cloudflare authentication: wrangler whoami"
+                    echo "   Re-authenticate if needed: wrangler login"
+                    return 1
+                fi
             else
                 echo "   ⚠️  Wrangler CLI not found. Install: npm install -g wrangler"
                 echo "   Manual deploy: wrangler pages deploy $template_path --project-name=${template_name}"
@@ -377,16 +381,11 @@ orchestrate_status() {
         local template_path="$TRINITY_ROOT/redlight/templates/${template_name}.html"
         local size=$(du -h "$template_path" | cut -f1)
         # Portable date handling - try multiple methods
-        local modified
-        if date -r "$template_path" "+%Y-%m-%d %H:%M:%S" 2>/dev/null; then
-            modified=$(date -r "$template_path" "+%Y-%m-%d %H:%M:%S")
-        elif stat -c %y "$template_path" 2>/dev/null; then
-            modified=$(stat -c %y "$template_path" | cut -d'.' -f1)
-        elif stat -f "%Sm" "$template_path" 2>/dev/null; then
-            modified=$(stat -f "%Sm" "$template_path")
-        else
-            modified="unknown"
-        fi
+        local modified=""
+        modified=$(date -r "$template_path" "+%Y-%m-%d %H:%M:%S" 2>/dev/null) || \
+        modified=$(stat -c %y "$template_path" 2>/dev/null | cut -d'.' -f1) || \
+        modified=$(stat -f "%Sm" "$template_path" 2>/dev/null) || \
+        modified="unknown"
         echo -e "  ✅ Template exists"
         echo -e "  📏 Size: ${size}"
         echo -e "  📅 Modified: ${modified}"
