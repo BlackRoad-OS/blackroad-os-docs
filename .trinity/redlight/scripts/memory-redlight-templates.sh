@@ -2,7 +2,8 @@
 # RedLight Memory Templates
 # Standardized logging for template management with BlackRoad memory system
 
-set -e
+# Don't exit on error - gracefully handle missing memory system
+# set -e
 
 MEMORY_SYSTEM="$HOME/memory-system.sh"
 
@@ -23,7 +24,13 @@ rl_log() {
     # Prepend RedLight tags to details
     local full_details="[${rl_tags}] ${details}"
 
-    $MEMORY_SYSTEM log "$action" "$entity" "$full_details"
+    # Check if memory system exists
+    if [ -f "$MEMORY_SYSTEM" ]; then
+        $MEMORY_SYSTEM log "$action" "$entity" "$full_details"
+    else
+        # Fallback to stdout if memory system not available
+        echo "[RedLight] $action: $entity - $full_details"
+    fi
 }
 
 # ═══════════════════════════════════════════════════════

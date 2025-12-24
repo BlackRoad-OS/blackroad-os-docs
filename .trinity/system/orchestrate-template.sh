@@ -2,23 +2,24 @@
 # Template Orchestration Master Script
 # Coordinates RedLight, GreenLight, and YellowLight for template lifecycle
 
-set -e
+# Don't exit on error - we want to continue even if some systems are unavailable
+# set -e
 
 # Get script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TRINITY_ROOT="$(dirname "$SCRIPT_DIR")"
 
-# Source all Light systems
+# Source all Light systems (ignore errors if not available)
 if [ -f "$TRINITY_ROOT/redlight/scripts/memory-redlight-templates.sh" ]; then
-    source "$TRINITY_ROOT/redlight/scripts/memory-redlight-templates.sh"
+    source "$TRINITY_ROOT/redlight/scripts/memory-redlight-templates.sh" 2>/dev/null || true
 fi
 
 if [ -f "$TRINITY_ROOT/greenlight/scripts/memory-greenlight-templates.sh" ]; then
-    source "$TRINITY_ROOT/greenlight/scripts/memory-greenlight-templates.sh"
+    source "$TRINITY_ROOT/greenlight/scripts/memory-greenlight-templates.sh" 2>/dev/null || true
 fi
 
 if [ -f "$TRINITY_ROOT/yellowlight/scripts/memory-yellowlight-templates.sh" ]; then
-    source "$TRINITY_ROOT/yellowlight/scripts/memory-yellowlight-templates.sh"
+    source "$TRINITY_ROOT/yellowlight/scripts/memory-yellowlight-templates.sh" 2>/dev/null || true
 fi
 
 # Colors
