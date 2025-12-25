@@ -1,0 +1,374 @@
+# 🚀 Trinity Quick Start Guide
+
+Get started with the Light Trinity System in 5 minutes!
+
+---
+
+## 1. Verify Trinity is Present
+
+```bash
+# Check Trinity compliance
+npm run trinity:check blackroad-os-docs
+
+# Or run directly
+.trinity/system/trinity-check-compliance.sh blackroad-os-docs
+```
+
+**Expected:** ✅ All three lights present and functional
+
+---
+
+## 2. Use GreenLight for Work Tracking
+
+### Start Your Work
+
+```bash
+# Source the GreenLight templates
+source .trinity/greenlight/scripts/memory-greenlight-templates.sh
+
+# Announce what you're working on
+gl_announce "my-feature" "Building new feature" "1) Design 2) Code 3) Test" "Adding cool functionality"
+
+# Mark work in progress
+gl_wip "my-feature" "In progress"
+```
+
+### Log Progress
+
+```bash
+# Log a successful deployment
+gl_deployed "my-service" "v1.0.0" "production" "Successfully deployed"
+
+# Log an error
+gl_error_detected "my-service" "database_error" "Connection timeout" "critical"
+
+# Mark task done
+gl_done "my-feature" "completed" "Feature fully implemented and tested"
+```
+
+### Common Templates
+
+```bash
+# Show all available templates
+show_help
+
+# Some useful ones:
+gl_phase_done "phase-name" "project" "Summary" "🎯"
+gl_milestone_hit "milestone" "project" "Description" "Achievement"
+gl_learning_discovered "topic" "insight" "benefit-or-context"
+```
+
+---
+
+## 3. Use RedLight for Brand Consistency
+
+### Browse Templates
+
+```bash
+# List available brand templates
+ls .trinity/redlight/templates/
+
+# Templates include:
+# - blackroad-ultimate.html (full-featured landing page)
+# - blackroad-3d-world.html (3D interactive world)
+# - blackroad-animation.html (animated experience)
+# - blackroad-game.html (game-like interface)
+# ... and 14+ more
+```
+
+### Create a New Page
+
+```bash
+# Copy a template
+cp .trinity/redlight/templates/blackroad-ultimate.html ./my-new-page.html
+
+# Edit while keeping:
+# ✅ Brand colors (Amber → Pink → Violet → Blue gradient)
+# ✅ Typography (SF Pro Display, -apple-system)
+# ✅ Golden ratio spacing (φ = 1.618)
+# ✅ Performance targets (>30 FPS, <3s load)
+```
+
+### Test Your Page
+
+```bash
+# Source RedLight templates
+source .trinity/redlight/scripts/memory-redlight-templates.sh
+
+# Log template creation
+rl_template_create "my-new-page" "landing" "Description of page"
+
+# Log successful test
+rl_test_passed "my-new-page" "visual" "Brand colors validated"
+
+# Log performance
+rl_performance_metrics "my-new-page" "60" "1.2" "180"
+# Args: name, fps, load_time_seconds, memory_mb
+```
+
+---
+
+## 4. Use YellowLight for Infrastructure
+
+### Deploy with Standards
+
+```bash
+# Source YellowLight templates
+source .trinity/yellowlight/scripts/memory-yellowlight-templates.sh
+
+# Log deployment start
+yl_deployment_started "my-service" "Railway" "Starting deployment"
+
+# Log successful deployment
+yl_deployment_succeeded "my-service" "Railway" "https://my-service.railway.app"
+
+# Log health check
+yl_health_check "my-service" "https://my-service.railway.app/health" "150"
+# Args: service, url, response_time_ms
+```
+
+### Access Codex
+
+```bash
+# Integrate with Codex (one-time)
+source .trinity/yellowlight/scripts/trinity-codex-integration.sh
+
+# Record tests in Codex
+~/trinity-record-test.sh 'my-service' 'yellowlight' 'Deployment' 1 'Successfully deployed'
+
+# Check compliance
+~/trinity-check-compliance.sh 'my-service'
+```
+
+---
+
+## 5. Verify Full Compliance
+
+### Before Submitting PR
+
+```bash
+# 1. Check Trinity structure
+npm run trinity:check blackroad-os-docs
+
+# 2. Build docs to verify
+npm run build
+
+# 3. Check git status
+git status
+
+# 4. If using Codex, verify compliance
+~/trinity-check-compliance.sh 'your-entity-name'
+```
+
+### Expected Output
+
+```
+🌈 Light Trinity Compliance Check
+=================================
+
+✅ .trinity/ directory present
+
+🔴 Checking RedLight...
+   ✅ RedLight directory present
+   📄 Found 18+ HTML templates
+   ✅ Documentation present
+
+💚 Checking GreenLight...
+   ✅ GreenLight directory present
+   📚 Found 12+ documentation files
+   ✅ Template script present
+   🔧 Found 103+ template functions
+
+💛 Checking YellowLight...
+   ✅ YellowLight directory present
+   ✅ Documentation present
+   🔧 Found 2+ infrastructure scripts
+
+🌈 Checking Trinity System...
+   ✅ System directory present
+   ✅ Trinity overview present
+   ✅ Enforcement docs present
+
+=================================
+✅ Trinity compliance check PASSED
+```
+
+---
+
+## 6. Multi-Agent Coordination (Advanced)
+
+### Announce Your Agent
+
+```bash
+source .trinity/greenlight/scripts/memory-greenlight-templates.sh
+
+# Make yourself known
+gl_agent_available "claude-docs" "documentation" "Docusaurus, Markdown, MDX"
+```
+
+### Claim a Task
+
+```bash
+# Claim work
+gl_task_claimed "issue-123" "claude-docs" "Update Trinity documentation"
+
+# Start work
+gl_wip "issue-123" "Updating docs"
+```
+
+### Share Learning
+
+```bash
+# Share what you learned
+gl_learning_discovered "docusaurus-config" "Use autogenerated sidebars for large doc sets" "Reduces maintenance"
+```
+
+### Report Success
+
+```bash
+# Report collaboration
+gl_collaboration_success "issue-123" "claude-docs,claude-review" "Trinity docs updated and reviewed"
+```
+
+---
+
+## 7. Common Workflows
+
+### New Feature Development
+
+```bash
+# 1. Announce
+gl_announce "feature-x" "Building feature X" "1) Design 2) Code 3) Test 4) Deploy" "Context"
+
+# 2. Work
+gl_wip "feature-x" "Coding"
+
+# 3. Test against Trinity standards
+# - RedLight: Brand, performance, accessibility
+# - YellowLight: Infrastructure, deployment
+# - GreenLight: Tracking, coordination
+
+# 4. Complete
+gl_done "feature-x" "completed" "Feature implemented"
+```
+
+### Documentation Update
+
+```bash
+# 1. Start
+gl_announce "docs-update" "Updating docs" "1) Edit 2) Build 3) Review" "Improvement"
+
+# 2. Make changes
+# Edit markdown files...
+
+# 3. Build
+npm run build
+
+# 4. Complete
+gl_done "docs-update" "completed" "Documentation updated"
+```
+
+### Bug Fix
+
+```bash
+# 1. Log error
+gl_error_detected "component" "bug-type" "Description" "severity"
+
+# 2. Fix and test
+# Make fixes...
+
+# 3. Log resolution
+gl_error_resolved "component" "bug-type" "Fix description" "120"
+# Args: service, error_type, how_fixed, resolution_time_minutes
+```
+
+---
+
+## 8. Cheat Sheet
+
+### Most Used GreenLight Commands
+
+```bash
+gl_announce       # Announce work
+gl_wip           # Mark in progress
+gl_done          # Mark complete
+gl_deployed      # Log deployment
+gl_error_detected # Log error
+gl_error_resolved # Log fix
+gl_phase_done    # Complete phase
+```
+
+### Most Used YellowLight Commands
+
+```bash
+yl_deployment_started    # Start deployment
+yl_deployment_succeeded  # Deploy success
+yl_deployment_failed     # Deploy failure
+yl_health_check         # Health check
+yl_rollback_executed    # Rollback
+```
+
+### Most Used RedLight Commands
+
+```bash
+rl_template_create        # New template
+rl_test_passed           # Test success
+rl_performance_metrics   # Performance
+rl_template_deploy       # Deploy template
+```
+
+---
+
+## 9. Documentation Links
+
+- **Full Trinity Guide:** [Trinity System Documentation](https://docs.blackroad.io/meta/trinity-system)
+- **Codex Integration:** [BlackRoad Codex](https://docs.blackroad.io/meta/blackroad-codex)
+- **GreenLight Emoji Dictionary:** `.trinity/greenlight/docs/GREENLIGHT_EMOJI_DICTIONARY.md`
+- **GreenLight Quick Reference:** `.trinity/greenlight/docs/GREENLIGHT_CLAUDE_QUICK_REFERENCE.md`
+- **RedLight Templates:** `.trinity/redlight/docs/REDLIGHT_TEMPLATE_SYSTEM.md`
+- **YellowLight Infrastructure:** `.trinity/yellowlight/docs/YELLOWLIGHT_INFRASTRUCTURE_SYSTEM.md`
+
+---
+
+## 10. Getting Help
+
+### Check Documentation
+
+```bash
+# Browse Trinity docs
+ls .trinity/greenlight/docs/
+ls .trinity/redlight/docs/
+ls .trinity/yellowlight/docs/
+ls .trinity/system/
+
+# Read specific guides
+cat .trinity/greenlight/docs/GREENLIGHT_CLAUDE_QUICK_REFERENCE.md
+```
+
+### See All Templates
+
+```bash
+# Source GreenLight and show all functions
+source .trinity/greenlight/scripts/memory-greenlight-templates.sh
+show_help
+```
+
+### Run Compliance Check
+
+```bash
+# Check repository compliance
+npm run trinity:check blackroad-os-docs
+
+# Check entity compliance (if using Codex)
+~/trinity-check-compliance.sh 'your-entity-name'
+```
+
+---
+
+**Remember:** Every action passes through the Trinity! 🌈
+
+🔴 **RedLight** = Brand & Design  
+🟢 **GreenLight** = Intelligence & Coordination  
+🟡 **YellowLight** = Infrastructure & Operations
+
+**One Trinity. One Vision. Infinite Possibilities.** ✨
