@@ -4,6 +4,11 @@
 
 [![Docs](https://img.shields.io/badge/docs-blackroad.io-black)](https://docs.blackroad.io)
 [![License](https://img.shields.io/badge/license-proprietary-red)](LICENSE)
+[![Trinity](https://img.shields.io/badge/🌈_Trinity-Compliant-success)](https://docs.blackroad.io/meta/trinity-system)
+[![Codex](https://img.shields.io/badge/📚_Codex-Integrated-blue)](https://docs.blackroad.io/meta/blackroad-codex)
+[![RedLight](https://img.shields.io/badge/🔴_RedLight-18+_Templates-ff6b00)](https://docs.blackroad.io/meta/trinity-system)
+[![GreenLight](https://img.shields.io/badge/🟢_GreenLight-103+_Functions-00cc66)](https://docs.blackroad.io/meta/trinity-system)
+[![YellowLight](https://img.shields.io/badge/🟡_YellowLight-Infrastructure-ffcc00)](https://docs.blackroad.io/meta/trinity-system)
 
 ---
 
@@ -126,11 +131,38 @@ See [IMPLEMENTATION-ROADMAP.md](docs/IMPLEMENTATION-ROADMAP.md) for full task tr
 
 ---
 
+## 🌈 The Light Trinity System
+
+This repository is fully integrated with the **Light Trinity System** — BlackRoad OS's unified intelligence, templating, and infrastructure framework.
+
+### The Three Lights
+
+- **🔴 RedLight** — Brand & Design System (18+ HTML templates)
+- **🟢 GreenLight** — Project Intelligence & Coordination (103+ logging functions)
+- **🟡 YellowLight** — Infrastructure & Deployment (Codex integration)
+
+All work passes through Trinity quality gates to ensure consistency, quality, and coordination across the entire BlackRoad OS ecosystem.
+
+**Learn More:**
+- [Trinity System Documentation](https://docs.blackroad.io/meta/trinity-system)
+- [BlackRoad Codex Integration](https://docs.blackroad.io/meta/blackroad-codex)
+- [Trinity Compliance Workflow](.github/workflows/trinity-compliance.yml)
+
+**Quick Check:**
+```bash
+# Verify Trinity compliance
+.trinity/system/trinity-check-compliance.sh
+```
+
+---
+
 ## Contributing
 
 Keep content concise, link across sections, and prefer iterative updates over monolithic rewrites. Mark components as `planned`, `alpha`, or `in-flight` when appropriate so operators, developers, and partners have an honest view of the system.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for style conventions, validation steps, and how to extend the sidebar when adding new pages.
+
+**Trinity Integration:** All contributions are automatically checked for Trinity compliance via CI/CD. Use GreenLight templates to log your work and maintain project intelligence.
 
 ---
 

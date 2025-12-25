@@ -12,7 +12,9 @@
     "build": "npm run prepare:docs && docusaurus build",
     "serve": "docusaurus serve",
     "swizzle": "docusaurus swizzle",
-    "clean": "docusaurus clear"
+    "clean": "docusaurus clear",
+    "trinity:check": "bash .trinity/system/trinity-check-compliance.sh",
+    "trinity:test": "bash .trinity/system/trinity-record-test.sh"
   },
   "engines": {
     "node": ">=20"
