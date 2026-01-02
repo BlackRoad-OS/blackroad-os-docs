@@ -4,6 +4,32 @@ This repository is the canonical source of truth for BlackRoad OS documentation.
 
 > 📚 **New to contributing?** Check out the comprehensive [Contributing Guide](docs/guides/contributing.md) and [Style Guide](docs/meta/STYLE_GUIDE.md) for detailed information.
 
+---
+
+## 🌈 Trinity System Integration
+
+**IMPORTANT:** All contributions must comply with the Light Trinity System.
+
+### Quick Trinity Check
+
+Before submitting your PR:
+
+```bash
+# Verify Trinity compliance
+.trinity/system/trinity-check-compliance.sh
+
+# Log your work with GreenLight
+source .trinity/greenlight/scripts/memory-greenlight-templates.sh
+gl_announce "docs-update" "Updating documentation" "1) Edit 2) Review 3) Submit" "Documentation improvement"
+```
+
+**Trinity Resources:**
+- [Trinity System Documentation](https://docs.blackroad.io/meta/trinity-system)
+- [BlackRoad Codex Integration](https://docs.blackroad.io/meta/blackroad-codex)
+- [Trinity Compliance Workflow](.github/workflows/trinity-compliance.yml)
+
+---
+
 ## Quick setup
 - Use Node.js 20+ with npm or pnpm installed.
 - Install dependencies once via `npm install`.
