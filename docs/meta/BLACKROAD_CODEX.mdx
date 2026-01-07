@@ -1,0 +1,565 @@
+---
+id: meta-blackroad-codex
+title: BlackRoad Codex Integration
+slug: /meta/blackroad-codex
+description: Understanding and using the BlackRoad Codex system for code reuse, quality gates, and Trinity compliance.
+tags: ['meta', 'codex', 'development', 'quality', 'reuse']
+status: stable
+---
+
+# 📚 BlackRoad Codex Integration
+
+**Version:** 1.0.0  
+**Status:** 🎯 ACTIVE
+
+The BlackRoad Codex is a comprehensive knowledge and component library that enables code reuse, enforces quality standards, and integrates with the Trinity system to ensure all work meets BlackRoad OS standards.
+
+---
+
+## What is the BlackRoad Codex?
+
+The BlackRoad Codex is a SQLite-based verification and knowledge system that:
+
+1. **Stores Reusable Components:** 8,789+ code components, patterns, and solutions
+2. **Enforces Quality Gates:** Trinity standards verification
+3. **Tracks Compliance:** Entity-level compliance monitoring across all three lights
+4. **Enables Discovery:** Search and reuse existing solutions before building new ones
+5. **Maintains History:** Test results and compliance tracking over time
+
+---
+
+## Repository Role
+
+Every BlackRoad OS repository has a **codex prompt** that defines its role and purpose within the ecosystem. This helps agents and developers understand:
+
+- **What the repository does**
+- **What it's responsible for**
+- **How it fits into the larger system**
+- **What conventions it follows**
+
+### This Repository's Codex Prompt
+
+Location: `codex.prompt.json`
+
+```json
+{
+  "repo": "blackroad-os-docs",
+  "role": "DocsPortal",
+  "purpose": "Public documentation and developer portal for BlackRoad OS",
+  "information_domains": [
+    "what is BlackRoad OS",
+    "PS-SHA∞ identity and worldlines",
+    "agents, beacons, and operator",
+    "Prism Console and observability",
+    "API gateway and endpoints",
+    "infrastructure + deployment patterns",
+    "security and identity model",
+    "getting started and onboarding"
+  ]
+}
+```
+
+The full codex prompt includes:
+- **Responsibilities:** What this documentation maintains
+- **Outputs:** Types of content produced
+- **Rules:** Quality and consistency standards
+- **Structure:** Suggested documentation organization
+- **Audiences:** Who uses this documentation
+
+---
+
+## Integration with Trinity
+
+The Codex system integrates deeply with the [Light Trinity System](/meta/trinity-system) to provide comprehensive quality gates.
+
+### Trinity Standards in Codex
+
+The Codex database includes three tables for Trinity integration:
+
+#### 1. `trinity_standards` Table
+
+Stores 16 quality standards across all three lights:
+
+**RedLight Standards (6):**
+- ✅ Brand color palette compliance
+- ⚡ Performance targets (FPS, load time, memory)
+- ♿ Accessibility (WCAG 2.1 AA)
+- 🏗️ Architecture (self-contained, responsive)
+- 🚀 Deployment readiness
+
+**YellowLight Standards (6):**
+- 🏗️ Approved platforms (Cloudflare/Railway/Pi/DO)
+- 💚 Health endpoints
+- 🔄 Rollback capability
+- 🤖 CI/CD automation
+- 🔐 Secrets management
+- 📝 Memory logging
+
+**GreenLight Standards (5):**
+- 📊 State tracking
+- 📡 NATS event publishing
+- 🎯 Phase completion tracking
+- 🤝 Cross-agent coordination
+- 💾 PS-SHA∞ memory logging
+
+#### 2. `trinity_compliance` Table
+
+Tracks compliance status for each entity (template, deployment, task):
+
+```sql
+CREATE TABLE trinity_compliance (
+    entity_name TEXT NOT NULL,
+    greenlight_pass BOOLEAN DEFAULT 0,
+    yellowlight_pass BOOLEAN DEFAULT 0,
+    redlight_pass BOOLEAN DEFAULT 0,
+    compliance_status TEXT, -- 'pending', 'partial', 'full', 'failed'
+    last_checked TIMESTAMP
+);
+```
+
+#### 3. `trinity_test_results` Table
+
+Maintains history of all test results:
+
+```sql
+CREATE TABLE trinity_test_results (
+    entity_name TEXT NOT NULL,
+    light_type TEXT NOT NULL,
+    test_name TEXT NOT NULL,
+    passed BOOLEAN NOT NULL,
+    details TEXT,
+    tested_at TIMESTAMP
+);
+```
+
+---
+
+## Setting Up Codex Integration
+
+### One-Time Setup
+
+```bash
+# Initialize the BlackRoad Codex database (if not already done)
+~/blackroad-codex-verification-suite.sh init
+
+# Integrate Trinity standards into Codex
+source .trinity/yellowlight/scripts/trinity-codex-integration.sh
+```
+
+This creates:
+- `~/.blackroad/codex/codex.db` - SQLite database
+- `~/trinity-check-compliance.sh` - Compliance checker
+- `~/trinity-record-test.sh` - Test recorder
+
+---
+
+## Using the Codex
+
+### Recording Test Results
+
+```bash
+# Record a test result
+~/trinity-record-test.sh <entity_name> <light_type> <test_name> <passed:0/1> [details]
+
+# Example: Record successful RedLight brand test
+~/trinity-record-test.sh 'blackroad-mars-page' 'redlight' 'Brand Colors' 1 'Gradient validated'
+
+# Example: Record failed YellowLight health check
+~/trinity-record-test.sh 'api-service' 'yellowlight' 'Health Endpoint' 0 '/health returned 404'
+
+# Example: Record successful GreenLight coordination
+~/trinity-record-test.sh 'feature-dashboard' 'greenlight' 'State Tracking' 1 'All phases logged'
+```
+
+### Checking Compliance
+
+```bash
+# Check compliance for an entity
+~/trinity-check-compliance.sh <entity_name> [entity_type]
+
+# Example: Check compliance for a template
+~/trinity-check-compliance.sh 'blackroad-mars-page'
+
+# Example: Check compliance for a deployment
+~/trinity-check-compliance.sh 'api-service' 'deployment'
+```
+
+**Output Example:**
+
+```
+🚦 Checking Trinity compliance for: blackroad-mars-page
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔴 REDLIGHT Standards:
+  ✅ Brand Colors: Gradient validated
+  ✅ Performance: 60 FPS, 1.2s load, 180MB memory
+  ✅ Accessibility: WCAG 2.1 AA compliant
+
+🟡 YELLOWLIGHT Standards:
+  ✅ Platform: Deployed to Cloudflare Pages
+  ✅ Health: /health endpoint responding
+
+🟢 GREENLIGHT Standards:
+  ✅ State Tracking: All work phases logged
+  ✅ Memory: Logged to PS-SHA∞
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ FULL COMPLIANCE (🟢: PASS, 🟡: PASS, 🔴: PASS)
+```
+
+---
+
+## Workflow Integration
+
+### Development Workflow with Codex
+
+1. **Before Starting Work:**
+   ```bash
+   # Check if a similar component exists in Codex
+   # (Search functionality - to be implemented)
+   ```
+
+2. **During Development:**
+   ```bash
+   # Use GreenLight to log work
+   source .trinity/greenlight/scripts/memory-greenlight-templates.sh
+   gl_wip "my-feature" "Building dashboard component"
+   ```
+
+3. **Testing Phase:**
+   ```bash
+   # Record test results for each light
+   ~/trinity-record-test.sh 'my-feature' 'redlight' 'Brand Colors' 1 'Validated'
+   ~/trinity-record-test.sh 'my-feature' 'yellowlight' 'Deployment' 1 'Railway deployed'
+   ~/trinity-record-test.sh 'my-feature' 'greenlight' 'Tracking' 1 'All phases logged'
+   ```
+
+4. **Before Merging:**
+   ```bash
+   # Verify full Trinity compliance
+   ~/trinity-check-compliance.sh 'my-feature'
+   
+   # Should show: ✅ FULL COMPLIANCE
+   ```
+
+5. **After Deployment:**
+   ```bash
+   # Log successful deployment to GreenLight
+   gl_deployed "my-feature" "v1.0.0" "production" "Feature deployed successfully"
+   ```
+
+---
+
+## Codex Components
+
+### Available Components
+
+The Codex contains 8,789+ reusable components including:
+
+- **UI Components:** React, Vue, Angular components
+- **API Patterns:** REST, GraphQL, WebSocket implementations
+- **Infrastructure Templates:** Deployment configs, Docker files, CI/CD pipelines
+- **Algorithm Implementations:** Common algorithms and data structures
+- **Integration Patterns:** Third-party service integrations
+- **Testing Utilities:** Test helpers, mocks, fixtures
+
+### Component Categories
+
+| Category | Count | Examples |
+|----------|-------|----------|
+| Frontend | 2,500+ | React components, Tailwind utilities |
+| Backend | 1,800+ | API endpoints, middleware, auth |
+| Infrastructure | 1,200+ | Deployment scripts, configs |
+| Database | 900+ | Schemas, migrations, queries |
+| Testing | 800+ | Test utilities, mocks |
+| Documentation | 600+ | Templates, examples |
+| Other | 989+ | Utilities, helpers |
+
+---
+
+## Quality Gates
+
+All work must pass through three Trinity quality gates:
+
+### 🔴 RedLight Gate: Visual & Brand
+
+**Checks:**
+- Brand color compliance
+- Performance metrics (FPS, load time, memory)
+- Accessibility standards (WCAG 2.1 AA)
+- Responsive design
+- Deploy readiness
+
+**Pass Criteria:**
+- All visual elements use approved brand colors
+- Performance targets met or exceeded
+- Accessibility requirements satisfied
+- Works across devices and platforms
+
+---
+
+### 🟡 YellowLight Gate: Infrastructure
+
+**Checks:**
+- Deployment platform approval
+- Health endpoint availability
+- Rollback capability
+- CI/CD pipeline present
+- Secrets properly managed
+- Deployment logged
+
+**Pass Criteria:**
+- Deployed to approved platform
+- Monitoring and health checks in place
+- Can rollback if needed
+- No secrets in code
+
+---
+
+### 🟢 GreenLight Gate: Project Management
+
+**Checks:**
+- Work tracked in GreenLight
+- Events published to NATS
+- Phases completed and logged
+- Agent coordination recorded
+- Memory logged to PS-SHA∞
+
+**Pass Criteria:**
+- All work phases logged
+- State changes tracked
+- Cross-agent coordination documented
+- Knowledge shared
+
+---
+
+## Best Practices
+
+### 1. Always Check First
+
+Before building something new, check if it exists in the Codex:
+
+```bash
+# Search Codex (future functionality)
+# codex search "authentication middleware"
+```
+
+### 2. Log Everything
+
+Use GreenLight to log all work:
+
+```bash
+source .trinity/greenlight/scripts/memory-greenlight-templates.sh
+
+# Start of work
+gl_announce "feature-x" "Building feature" "Steps..." "Context"
+
+# During work
+gl_wip "feature-x" "In progress"
+
+# Completion
+gl_done "feature-x" "Completed" "Summary"
+```
+
+### 3. Test Against Standards
+
+Always record test results:
+
+```bash
+# Test each light
+~/trinity-record-test.sh 'entity' 'redlight' 'test-name' 1 'details'
+~/trinity-record-test.sh 'entity' 'yellowlight' 'test-name' 1 'details'
+~/trinity-record-test.sh 'entity' 'greenlight' 'test-name' 1 'details'
+```
+
+### 4. Verify Before Shipping
+
+Check compliance before merging:
+
+```bash
+~/trinity-check-compliance.sh 'my-feature'
+# Must show: ✅ FULL COMPLIANCE
+```
+
+---
+
+## Codex Database Schema
+
+### Core Tables
+
+```sql
+-- Trinity Standards
+CREATE TABLE trinity_standards (
+    id INTEGER PRIMARY KEY,
+    light_type TEXT CHECK(light_type IN ('greenlight', 'yellowlight', 'redlight')),
+    category TEXT NOT NULL,
+    standard_name TEXT NOT NULL,
+    requirement TEXT NOT NULL,
+    test_command TEXT,
+    failure_severity TEXT CHECK(failure_severity IN ('critical', 'high', 'medium', 'low'))
+);
+
+-- Compliance Tracking
+CREATE TABLE trinity_compliance (
+    id INTEGER PRIMARY KEY,
+    entity_type TEXT NOT NULL,
+    entity_name TEXT NOT NULL,
+    greenlight_pass BOOLEAN DEFAULT 0,
+    yellowlight_pass BOOLEAN DEFAULT 0,
+    redlight_pass BOOLEAN DEFAULT 0,
+    compliance_status TEXT CHECK(compliance_status IN ('pending', 'partial', 'full', 'failed')),
+    last_checked TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Test Results
+CREATE TABLE trinity_test_results (
+    id INTEGER PRIMARY KEY,
+    entity_name TEXT NOT NULL,
+    light_type TEXT NOT NULL,
+    test_name TEXT NOT NULL,
+    passed BOOLEAN NOT NULL,
+    details TEXT,
+    tested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+---
+
+## CI/CD Integration
+
+The Codex and Trinity systems integrate with CI/CD through the Trinity Compliance workflow:
+
+**Workflow:** `.github/workflows/trinity-compliance.yml`
+
+**Runs on:**
+- Push to main/master/develop
+- Pull requests
+- Weekly schedule (Sundays)
+
+**Verifies:**
+- ✅ Trinity structure present
+- ✅ All three lights functional
+- ✅ Documentation complete
+- ✅ Template counts correct
+
+---
+
+## Advanced Usage
+
+### Custom Standards
+
+Add custom standards to the Codex:
+
+```bash
+# Add a custom standard
+sqlite3 ~/.blackroad/codex/codex.db <<SQL
+INSERT INTO trinity_standards (light_type, category, standard_name, requirement, failure_severity)
+VALUES ('greenlight', 'custom', 'My Standard', 'Description', 'medium');
+SQL
+```
+
+### Querying Compliance Data
+
+```bash
+# Get all failed tests
+sqlite3 ~/.blackroad/codex/codex.db "
+SELECT entity_name, light_type, test_name, details 
+FROM trinity_test_results 
+WHERE passed = 0 
+ORDER BY tested_at DESC;
+"
+
+# Get compliance summary
+sqlite3 ~/.blackroad/codex/codex.db "
+SELECT 
+    compliance_status,
+    COUNT(*) as count
+FROM trinity_compliance
+GROUP BY compliance_status;
+"
+```
+
+---
+
+## Troubleshooting
+
+### Database Not Found
+
+```bash
+# Initialize Codex database
+~/blackroad-codex-verification-suite.sh init
+
+# Then integrate Trinity
+source .trinity/yellowlight/scripts/trinity-codex-integration.sh
+```
+
+### Scripts Not Executable
+
+```bash
+# Make scripts executable
+chmod +x ~/trinity-check-compliance.sh
+chmod +x ~/trinity-record-test.sh
+```
+
+### Missing Trinity Scripts
+
+```bash
+# Ensure Trinity scripts are sourced
+source .trinity/greenlight/scripts/memory-greenlight-templates.sh
+source .trinity/yellowlight/scripts/memory-yellowlight-templates.sh
+source .trinity/redlight/scripts/memory-redlight-templates.sh
+```
+
+---
+
+## Philosophy
+
+> "Build on what exists. Learn from what works. Share what you discover."
+> — The Codex Principle
+
+The BlackRoad Codex embodies:
+
+1. **Reuse Over Rebuild:** Always check if it exists first
+2. **Quality Over Speed:** Pass all Trinity gates
+3. **Learning Over Forgetting:** Record and share knowledge
+4. **Collaboration Over Isolation:** Coordinate and communicate
+
+---
+
+## Next Steps
+
+1. **Set Up Codex:**
+   ```bash
+   source .trinity/yellowlight/scripts/trinity-codex-integration.sh
+   ```
+
+2. **Learn the Standards:**
+   - Review Trinity standards in the database
+   - Understand quality requirements
+   - Know the compliance criteria
+
+3. **Use in Your Workflow:**
+   - Log work with GreenLight
+   - Test against standards
+   - Verify compliance before shipping
+
+4. **Contribute:**
+   - Add components to Codex
+   - Enhance standards
+   - Share learning
+
+---
+
+## Related Documentation
+
+- [The Light Trinity System](/meta/trinity-system)
+- [Master Codex Prompt](/meta/master-codex-prompt)
+- [Contributing Guide](/meta/docs-contributing)
+- [Style Guide](/meta/style-guide)
+
+---
+
+**Maintained By:** BlackRoad OS Team + All Claude Agents  
+**Source of Truth:** `blackroad-os/blackroad-os-infra`
+
+📚 **One Codex. Infinite Knowledge. Shared Understanding.** ✨
