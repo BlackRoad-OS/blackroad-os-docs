@@ -8,7 +8,18 @@ BlackRoad OS treats incidents as shared responsibilities between agents and huma
 
 ## Detection
 
-Metrics, health checks, and future alerting pipelines feed into the operator and Prism Console. Agents can emit anomaly events when they detect policy violations or missing data. TODO: formalize the alert catalogue and thresholds.
+Metrics, health checks, and future alerting pipelines feed into the operator and Prism Console. Agents can emit anomaly events when they detect policy violations or missing data.
+
+### Alert catalogue and thresholds
+
+| Category | Example trigger | Default threshold | First responder |
+| --- | --- | --- | --- |
+| Availability | Consecutive failed health checks for an agent or orchestrator | 3 failures within 10 minutes | Platform on-call |
+| Compliance | Action attempted without a required approval or missing journal signature | 1 event | Governance lead |
+| Data quality | Ledger drift between RoadChain and finance layer projections | >0.1% variance over 15 minutes | Finance SRE |
+| Security | Suspicious capability escalation or role assumption | 1 event from PS-SHA∞ verifier | Security on-call |
+
+Thresholds are defined in `blackroad-os-infra/runbooks/alerts.yaml` and surfaced in the Prism Console so operators can tune them per environment. Each alert is linked to a mitigation playbook that includes rollback steps and journaling requirements. If you need to add a new alert type, open a governance ticket with the proposed trigger, responder, and evidence captured for audits.
 
 ## Triage
 
