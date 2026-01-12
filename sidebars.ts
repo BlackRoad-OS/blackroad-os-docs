@@ -93,6 +93,8 @@ const sidebars: SidebarsConfig = {
         'meta/meta-docs-mega-prompt',
         'meta/meta-glossary',
         'meta/meta-master-codex-prompt',
+        'meta/meta-trinity-system',
+        'meta/meta-blackroad-codex',
         'meta/meta-architecture-decisions',
       ],
     },
