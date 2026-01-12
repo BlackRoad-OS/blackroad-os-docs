@@ -1,0 +1,100 @@
+name: Template Orchestration
+
+on:
+  push:
+    paths:
+      - '.trinity/redlight/templates/**'
+      - '.trinity/system/orchestrate-template.sh'
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Orchestration action'
+        required: true
+        type: choice
+        options:
+          - deploy
+          - status
+          - list
+        default: 'list'
+      template_name:
+        description: 'Template name (required for deploy/status)'
+        required: false
+      platform:
+        description: 'Deployment platform'
+        required: false
+        type: choice
+        options:
+          - cloudflare
+          - railway
+          - github
+          - vercel
+        default: 'cloudflare'
+
+jobs:
+  orchestrate:
+    runs-on: ubuntu-latest
+    name: Template Orchestration
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Setup Trinity Scripts
+        run: |
+          chmod +x .trinity/system/orchestrate-template.sh
+          chmod +x .trinity/redlight/scripts/*.sh 2>/dev/null || true
+          chmod +x .trinity/greenlight/scripts/*.sh 2>/dev/null || true
+          chmod +x .trinity/yellowlight/scripts/*.sh 2>/dev/null || true
+      
+      - name: List Templates
+        if: github.event.inputs.action == 'list' || github.event.inputs.action == ''
+        run: |
+          echo "🌈 Template Orchestration System"
+          echo "================================"
+          .trinity/system/orchestrate-template.sh list
+      
+      - name: Show Template Status
+        if: github.event.inputs.action == 'status' && github.event.inputs.template_name != ''
+        run: |
+          echo "📊 Template Status Check"
+          echo "======================="
+          .trinity/system/orchestrate-template.sh status ${{ github.event.inputs.template_name }}
+      
+      - name: Install Wrangler CLI
+        if: github.event.inputs.action == 'deploy' && github.event.inputs.platform == 'cloudflare'
+        run: npm install -g wrangler
+      
+      - name: Deploy Template
+        if: github.event.inputs.action == 'deploy' && github.event.inputs.template_name != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "🚀 Deploying Template"
+          echo "===================="
+          .trinity/system/orchestrate-template.sh deploy \
+            ${{ github.event.inputs.template_name }} \
+            ${{ github.event.inputs.platform }}
+      
+      - name: Notify Success
+        if: success()
+        run: |
+          echo "✅ Template orchestration completed successfully"
+          echo "Action: ${{ github.event.inputs.action || 'list' }}"
+          if [ -n "${{ github.event.inputs.template_name }}" ]; then
+            echo "Template: ${{ github.event.inputs.template_name }}"
+          fi
+      
+      - name: Notify Failure
+        if: failure()
+        run: |
+          echo "❌ Template orchestration failed"
+          echo "Action: ${{ github.event.inputs.action || 'list' }}"
+          if [ -n "${{ github.event.inputs.template_name }}" ]; then
+            echo "Template: ${{ github.event.inputs.template_name }}"
+          fi
