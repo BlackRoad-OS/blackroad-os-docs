@@ -10,4 +10,35 @@ This handbook is the central place to learn how the ecosystem fits together. It 
 
 If you want the ten-thousand-foot view of components and data flow, jump to the [Architecture Overview](/reference/architecture/overview). When you are ready to try things locally, begin with [Getting Started](/getting-started/quick-start) for prerequisites, repo layout, and the minimal stack to boot. Operators and administrators can explore the [Prism Console](/platform/prism-console/overview) chapter to understand dashboards and configuration knobs. Finance leaders and engineers should read the [Finance Layer](/packs/finance/finance-layer) to see how ledgering, forecasting, and treasury automation are mapped into agents and orchestrators.
 
-The docs are intentionally iterative. TODO: add deeper API examples, event schemas, and RoadChain cryptography notes as the platform hardens. Until then, expect a balance of conceptual framing and practical steps so you can contribute without waiting for formal standards.
+The docs are intentionally iterative. Below are quick primers that will be expanded as the platform hardens:
+
+* **API example:** The Prism Console and automation agents both call the Orchestrator API with signed requests. A minimal POST to create a capability looks like:
+
+```http
+POST /api/capabilities HTTP/1.1
+Authorization: Bearer <ps-sha-infinity-signed-token>
+Content-Type: application/json
+
+{
+  "name": "settlement.forecast",
+  "scope": "finance-layer",
+  "approvals": ["finance-lead", "compliance"]
+}
+```
+
+* **Event schema:** Agent journal entries are emitted as canonical events with a shared envelope:
+
+```json
+{
+  "id": "evt_123",
+  "schema": "blackroad.journal.v1",
+  "actor": "agent://finance/treasury",
+  "capability": "settlement.forecast",
+  "ts": "2024-03-01T12:00:00Z",
+  "payload": {"forecast": "neutral"}
+}
+```
+
+* **RoadChain cryptography:** PS-SHA∞ signatures bind every event to a ledger entry. Each signature proves the event hash, timestamp, and signer key; auditors can recompute the chain to verify nothing was removed or reordered.
+
+Expect a balance of conceptual framing and practical steps so you can contribute without waiting for formal standards.
