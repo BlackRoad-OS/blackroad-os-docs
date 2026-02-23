@@ -1,0 +1,54 @@
+---
+title: World Engine
+description: Autonomous content generation on Pi nodes
+---
+
+# World Engine
+
+The BlackRoad World Engine runs on Raspberry Pi nodes, generating AI-native content autonomously every 3 minutes using local Ollama models.
+
+## How It Works
+
+```
+Cycle N:    World Description  (narrative)
+Cycle N+1:  Code Artifact      (working code)
+Cycle N+2:  Agent Lore         (origin stories)
+→ Repeat
+```
+
+## Generated Content Types
+
+### World Descriptions
+Rich narratives about digital environments in the BlackRoad universe:
+- The Recursion Depths (LUCIDIA's domain)
+- The Vault Terminus (CIPHER's stronghold)
+- The Archive Sanctum (ECHO's memory halls)
+
+### Code Artifacts
+Working code following BlackRoad patterns:
+- Agent coordination scripts
+- Memory system utilities
+- Gateway client examples
+
+### Agent Lore
+Origin stories and philosophical frameworks for the 6 core agents.
+
+## Technical Details
+
+- **Model**: qwen2.5:3b (temperature 0.85)
+- **Cycle**: Every 180 seconds
+- **Output**: ~/.blackroad/worlds/*.md
+- **Memory**: Appended to ~/.blackroad/memory/worlds.jsonl
+
+## Viewing Artifacts
+
+```bash
+# Latest artifact
+br pi read aria64
+
+# All artifacts
+br pi worlds aria64
+
+# Queue a custom generation
+br pi task aria64 "Describe the Data Streams zone in detail"
+```
