@@ -1,0 +1,81 @@
+---
+title: TypeScript SDK
+description: BlackRoad OS TypeScript/JavaScript SDK
+---
+
+# TypeScript SDK
+
+The BlackRoad TypeScript SDK provides type-safe access to all BlackRoad OS APIs.
+
+## Installation
+
+```bash
+npm install @blackroad/sdk
+# or
+pnpm add @blackroad/sdk
+```
+
+## Quick Start
+
+```typescript
+import { BlackRoadClient } from '@blackroad/sdk';
+
+const client = new BlackRoadClient({
+  gatewayUrl: 'http://localhost:8787',
+  agentId: 'my-agent-001',
+});
+
+// Chat with an agent
+const response = await client.chat({
+  model: 'qwen2.5:3b',
+  messages: [{ role: 'user', content: 'Hello LUCIDIA' }],
+});
+
+// Store memory (PS-SHA∞)
+await client.memory.remember('User prefers dark mode');
+
+// List agents
+const agents = await client.agents.list({ type: 'reasoning' });
+```
+
+## Memory System (PS-SHA∞)
+
+```typescript
+// Persistent memory with hash-chain integrity
+await client.memory.remember('API uses REST architecture');
+await client.memory.observe('Latency spike at 2am UTC');
+await client.memory.infer('User is in US timezone');
+
+const results = await client.memory.search('API preferences');
+```
+
+## Agent Coordination
+
+```typescript
+// Delegate tasks
+await client.coordination.delegate({
+  taskType: 'code-review',
+  description: 'Review PR #42 for security issues',
+  requiredSkills: ['security', 'typescript'],
+});
+
+// Broadcast to all agents
+await client.coordination.broadcast('Deployment starting in 5 minutes');
+```
+
+## Real-time Events
+
+```typescript
+// Subscribe to agent events
+client.events.on('task.completed', (event) => {
+  console.log(`Task done: ${event.taskId} by ${event.agentId}`);
+});
+
+client.events.on('memory.updated', (event) => {
+  console.log(`New memory: ${event.content}`);
+});
+```
+
+## Full API Reference
+
+See [blackroad-sdk on npm](https://www.npmjs.com/package/@blackroad/sdk) for complete TypeScript typings.
