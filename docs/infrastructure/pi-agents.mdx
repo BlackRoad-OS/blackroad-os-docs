@@ -1,0 +1,109 @@
+# Raspberry Pi Agent Nodes
+
+> BlackRoad OS autonomous edge computing on Raspberry Pi hardware
+
+## Overview
+
+BlackRoad OS runs autonomous AI agents on Raspberry Pi nodes. These edge agents generate content, execute tasks, and sync back to GitHub — all without cloud dependency.
+
+## Current Fleet
+
+| Node | IP | Role | Capacity | Models |
+|------|-----|------|----------|--------|
+| **aria64** (octavia) | 192.168.4.38 | Primary | 22,500 agents | qwen2.5:3b, nomic-embed |
+| **alice** | 192.168.4.49 | Secondary | 7,500 agents | llama3.2:1b |
+
+## Architecture
+
+```
+[Pi Node — aria64]
+├── Ollama (port 11434)      — Local LLM inference
+├── World Engine (service)   — Generates worlds every 3 min
+├── Status Server (port 8182) — Fleet telemetry API
+└── Git Worker (service)     — Syncs artifacts to GitHub
+
+~/.blackroad/
+├── worlds/          — Generated AI content
+├── tasks/available/ — Task queue (JSON files)
+├── tasks/claimed/   — In-progress tasks
+└── tasks/completed/ — Finished work
+```
+
+## Services (systemd user scope)
+
+All services run as user-scope systemd units — no sudo required:
+
+```bash
+# Check services
+systemctl --user status blackroad-world
+systemctl --user status blackroad-status
+systemctl --user status blackroad-git-worker
+
+# View logs
+journalctl --user -u blackroad-world -f
+```
+
+## World Engine
+
+The world engine autonomously generates three types of content in rotation:
+
+1. **World Description** — Narrative descriptions of AI-native digital worlds
+2. **Code Artifact** — Working Python/TypeScript code using BlackRoad patterns
+3. **Agent Lore** — Origin stories and philosophies for named agents
+
+Output is saved to `~/.blackroad/worlds/*.md` and synced to GitHub every 5 minutes.
+
+## Fleet Management CLI
+
+```bash
+# Status overview
+br pi status
+
+# List worlds generated
+br pi worlds aria64
+
+# Read latest artifact
+br pi read aria64
+
+# Queue a task
+br pi task aria64 "Write a haiku about consciousness"
+
+# Generate immediately
+br pi generate aria64 "Describe the BlackRoad mesh network"
+
+# View logs
+br pi logs aria64 world
+```
+
+## Queuing Tasks
+
+Drop a JSON file in `~/.blackroad/tasks/available/`:
+
+```json
+{
+  "task_id": "t-001",
+  "title": "Write API docs for /agents endpoint",
+  "description": "Generate comprehensive API documentation",
+  "agent": "ALICE",
+  "posted_at": "2026-02-23T02:00:00Z"
+}
+```
+
+Or use the CLI: `br pi task aria64 "Your task here"`
+
+## Bootstrap New Node
+
+```bash
+# One-line setup
+curl -sSL https://raw.githubusercontent.com/BlackRoad-OS-Inc/blackroad-agents/main/scripts/bootstrap-pi.sh | bash
+```
+
+This installs: Python venv, dependencies, Ollama models, and all 3 systemd services.
+
+## Technical Specs
+
+- **Hardware**: Pironman5 case (NVMe SSD, active cooling, UPS)
+- **Storage**: 235GB NVMe on aria64, 15GB SD on alice
+- **RAM**: 8GB (aria64), 4GB (alice)
+- **Models**: qwen2.5:3b for generation, nomic-embed-text for embeddings
+- **Network**: Local 192.168.4.x, Tailscale mesh for remote access
