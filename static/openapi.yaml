@@ -1,0 +1,264 @@
+openapi: "3.1.0"
+info:
+  title: BlackRoad OS API
+  version: "1.0.0"
+  description: >
+    BlackRoad OS public API — agents, fleet, memory, and world artifacts.
+  contact:
+    name: BlackRoad OS, Inc.
+    url: https://blackroad.ai
+
+servers:
+  - url: https://api.blackroad.ai/v1
+    description: Production
+  - url: http://localhost:8787
+    description: Local Gateway
+
+paths:
+  /agents:
+    get:
+      summary: List agents
+      operationId: listAgents
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, idle, busy, offline]
+        - name: type
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Agent list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Agent"
+
+  /agents/{id}:
+    get:
+      summary: Get agent details
+      operationId: getAgent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Agent details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Agent"
+        "404":
+          description: Agent not found
+
+  /agents/{id}/message:
+    post:
+      summary: Send message to agent
+      operationId: messageAgent
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [content]
+              properties:
+                content:
+                  type: string
+                requires_response:
+                  type: boolean
+                  default: true
+      responses:
+        "200":
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+
+  /fleet:
+    get:
+      summary: Get Pi fleet status
+      operationId: getFleetStatus
+      responses:
+        "200":
+          description: Fleet nodes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/FleetNode"
+
+  /worlds:
+    get:
+      summary: List world artifacts
+      operationId: listWorlds
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+            enum: [world, lore, code]
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 50
+      responses:
+        "200":
+          description: World artifacts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/WorldArtifact"
+
+  /memory:
+    get:
+      summary: Search memory chain
+      operationId: searchMemory
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Memory entries
+    post:
+      summary: Store memory entry
+      operationId: storeMemory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [key, content]
+              properties:
+                key:
+                  type: string
+                content:
+                  type: string
+                type:
+                  type: string
+                  enum: [fact, observation, inference, commitment]
+                  default: observation
+      responses:
+        "201":
+          description: Entry stored
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemoryEntry"
+
+components:
+  schemas:
+    Agent:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+          enum: [active, idle, busy, offline]
+        capabilities:
+          type: array
+          items:
+            type: string
+        model:
+          type: string
+
+    FleetNode:
+      type: object
+      properties:
+        host:
+          type: string
+        ip:
+          type: string
+        cpu_pct:
+          type: number
+        ram_free_gb:
+          type: number
+        disk_free_gb:
+          type: number
+        worlds_created:
+          type: integer
+        mode:
+          type: string
+
+    WorldArtifact:
+      type: object
+      properties:
+        id:
+          type: string
+        filename:
+          type: string
+        type:
+          type: string
+          enum: [world, lore, code]
+        date:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+
+    MemoryEntry:
+      type: object
+      properties:
+        index:
+          type: integer
+        key:
+          type: string
+        content:
+          type: string
+        hash:
+          type: string
+        prev_hash:
+          type: string
+        timestamp_ns:
+          type: integer
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+        from:
+          type: string
+        to:
+          type: string
+        content:
+          type: string
+        timestamp:
+          type: string
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
+security:
+  - bearerAuth: []
